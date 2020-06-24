@@ -1,0 +1,9 @@
+# Book settings
+title: Data Science Wiki
+author: Joep Persoon
+logo: '_static/pruned-io.png'
+
+html:
+    extra_navbar: False
+    navbar_number_sections: False
+    favicon: '_static/favicon.ico'

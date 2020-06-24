@@ -1,0 +1,18 @@
+- file: index
+
+- header: Statistics & Probability
+- file: statistics-and-probability/measures-of-center
+- file: statistics-and-probability/basic-probability
+
+- header: Data Analysis
+- file: data-analysis/data-visualization/index
+  sections:
+  - file: data-analysis/data-visualization/univariate-exploration
+  
+- header: Machine Learning
+- file: machine-learning/supervised-learning/index
+  sections:
+  - file: machine-learning/supervised-learning/linear-regression
+
+- file: machine-learning/unsupervised-learning/index
+- file: machine-learning/reinforcement-learning/index

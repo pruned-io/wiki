@@ -1,0 +1,11 @@
+body {
+    font-family: "Avenir Next Rounded", "Avenir Next Rounded", "Avenir", "Calibri", Verdana, sans-serif;
+}
+
+thead {
+    background-color: #EEE;
+}
+
+.text-align\:center {
+    text-align: center;
+}
