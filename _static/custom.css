@@ -9,3 +9,16 @@ thead {
 .text-align\:center {
     text-align: center;
 }
+
+.table td, .table th {
+    padding-bottom: 0;
+}
+
+.table p {
+    margin-bottom: 10px;
+}
+
+.table.full-width {
+    width: 100% !important;
+    display: table !important;
+}
