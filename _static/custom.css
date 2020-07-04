@@ -17,3 +17,8 @@ thead {
 .table p {
     margin-bottom: 10px;
 }
+
+main.bd-content #main-content div.section {
+    padding-right: 0;
+    text-align: justify;
+}
