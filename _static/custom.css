@@ -22,3 +22,7 @@ main.bd-content #main-content div.section {
     padding-right: 0;
     text-align: justify;
 }
+
+.container {
+    padding-right: 0;
+}
