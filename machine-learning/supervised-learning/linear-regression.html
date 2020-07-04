@@ -1,0 +1,1262 @@
+
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Linear Regression &#8212; Data Science Wiki</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css" integrity="sha384-KA6wR/X5RY4zFAHpv/CnoG2UW1uogYfdnP67Uv7eULvTveboZJg0qUpmJZb5VqzN" crossorigin="anonymous">
+    <link href="../../_static/css/index.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../_static/sphinx-book-theme.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/custom.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/.ipynb_checkpoints/custom-checkpoint.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/jupyter-sphinx.css" />
+    <script id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/sphinx-book-theme.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/language_data.js"></script>
+    <script src="../../_static/togglebutton.js"></script>
+    <script src="../../_static/clipboard.min.js"></script>
+    <script src="../../_static/copybutton.js"></script>
+    <script src="../../_static/mystnb.js"></script>
+    <script src="../../_static/custom.js"></script>
+    <script src="../../_static/.ipynb_checkpoints/custom-checkpoint.js"></script>
+    <script src="../../_static/sphinx-book-theme.js"></script>
+    <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.18.0/dist/embed-amd.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="shortcut icon" href="../../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Unsupervised Learning" href="../unsupervised-learning/index.html" />
+    <link rel="prev" title="Supervised Learning" href="index.html" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="docsearch:language" content="en">
+
+
+
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+<a class="navbar-brand text-wrap" href="../../index.html">
+  
+  <img src="../../_static/pruned-io.png" class="logo" alt="logo">
+  
+  
+  <h1 class="site-logo" id="site-title">Data Science Wiki</h1>
+  
+</a>
+</div>
+
+<form class="bd-search d-flex align-items-center" action="../../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form>
+
+<nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+  
+  <ul class="nav sidenav_l1">
+<li class="navbar-special">
+<p class="margin-caption">Statistics & Probability</p>
+</li>
+  <li class="">
+    <a href="../../statistics-and-probability/measures-of-center.html">Measures of Center</a>
+  </li>
+  <li class="">
+    <a href="../../statistics-and-probability/basic-probability.html">Basic Probability</a>
+  </li>
+<li class="navbar-special">
+<p class="margin-caption">Data Analysis</p>
+</li>
+  <li class="">
+    <a href="../../data-analysis/data-visualization/index.html">Data Visualization</a>
+  </li>
+<li class="navbar-special">
+<p class="margin-caption">Machine Learning</p>
+</li>
+  <li class="active">
+    <a href="index.html">Supervised Learning</a>
+  <ul class="nav sidenav_l2">
+    <li class="active">
+      <a href="">Linear Regression</a>
+    </li>
+  </ul>
+  </li>
+  <li class="">
+    <a href="../unsupervised-learning/index.html">Unsupervised Learning</a>
+  </li>
+  <li class="">
+    <a href="../reinforcement-learning/index.html">Reinforcement Learning</a>
+  </li>
+</ul>
+</nav>
+
+ <!-- To handle the deprecated key -->
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="row topbar fixed-top container-xl">
+    <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show">
+    </div>
+    <div class="col pl-2 topbar-main">
+        
+        <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse" data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu" aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation" title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+            <i class="fas fa-bars"></i>
+            <i class="fas fa-arrow-left"></i>
+            <i class="fas fa-arrow-up"></i>
+        </button>
+        
+        <div class="dropdown-buttons-trigger">
+            <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i class="fas fa-download"></i></button>
+
+            
+            <div class="dropdown-buttons">
+                <!-- ipynb file if we had a myst markdown file -->
+                
+                <!-- Download raw file -->
+                <a class="dropdown-buttons" href="../../_sources/machine-learning/supervised-learning/linear-regression.ipynb"><button type="button" class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip" data-placement="left">.ipynb</button></a>
+                <!-- Download PDF via print -->
+                <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF" onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+            </div>
+            
+        </div>
+
+        <!-- Source interaction buttons -->
+        
+
+        <!-- Full screen (wrap in <a> to have style consistency -->
+        <a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="bottom" onclick="toggleFullScreen()" title="Fullscreen mode"><i class="fas fa-expand"></i></button></a>
+
+        <!-- Launch buttons -->
+        
+    </div>
+    <div class="d-none d-md-block col-md-2 bd-toc show">
+<div class="tocsection onthispage pt-5 pb-3">
+    <i class="fas fa-list"></i> On this page
+</div>
+
+<nav id="bd-toc-nav">
+    <ul class="nav section-nav flex-column">
+    
+        <li class="nav-item toc-entry toc-h2">
+            <a href="#overview" class="nav-link">Overview</a><ul class="nav section-nav flex-column">
+                
+        <li class="nav-item toc-entry toc-h3">
+            <a href="#simple-linear-regression" class="nav-link">Simple Linear Regression</a><ul class="nav section-nav flex-column">
+                
+        <li class="nav-item toc-entry toc-h4">
+            <a href="#python-code-example" class="nav-link">Python Code Example</a>
+        </li>
+    
+            </ul>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h3">
+            <a href="#multiple-linear-regression" class="nav-link">Multiple Linear Regression</a><ul class="nav section-nav flex-column">
+                
+        <li class="nav-item toc-entry toc-h4">
+            <a href="#id1" class="nav-link">Python Code Example</a>
+        </li>
+    
+            </ul>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h3">
+            <a href="#polynomial-regression" class="nav-link">Polynomial Regression</a><ul class="nav section-nav flex-column">
+                
+        <li class="nav-item toc-entry toc-h4">
+            <a href="#id2" class="nav-link">Python Code Example</a>
+        </li>
+    
+            </ul>
+        </li>
+    
+            </ul>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h2">
+            <a href="#error-functions" class="nav-link">Error Functions</a><ul class="nav section-nav flex-column">
+                
+        <li class="nav-item toc-entry toc-h3">
+            <a href="#mean-absolute-error-mae" class="nav-link">Mean Absolute Error (MAE)</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h3">
+            <a href="#mean-squared-error-mse" class="nav-link">Mean Squared Error (MSE)</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h3">
+            <a href="#mae-vs-mse" class="nav-link">MAE vs MSE</a>
+        </li>
+    
+            </ul>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h2">
+            <a href="#algorithms-and-optimizations" class="nav-link">Algorithms and Optimizations</a><ul class="nav section-nav flex-column">
+                
+        <li class="nav-item toc-entry toc-h3">
+            <a href="#gradient-descent" class="nav-link">Gradient Descent</a><ul class="nav section-nav flex-column">
+                
+        <li class="nav-item toc-entry toc-h4">
+            <a href="#derivative-of-error-functions" class="nav-link">Derivative of Error Functions</a><ul class="nav section-nav flex-column">
+                
+        <li class="nav-item toc-entry toc-h5">
+            <a href="#derivative-of-mean-absolute-error" class="nav-link">Derivative of Mean Absolute Error</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h5">
+            <a href="#derivative-of-mean-squared-error" class="nav-link">Derivative of Mean Squared Error</a>
+        </li>
+    
+            </ul>
+        </li>
+    
+            </ul>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h3">
+            <a href="#regularization" class="nav-link">Regularization</a><ul class="nav section-nav flex-column">
+                
+        <li class="nav-item toc-entry toc-h4">
+            <a href="#l1-regularization" class="nav-link">L1 Regularization</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h4">
+            <a href="#l2-regularization" class="nav-link">L2 Regularization</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h4">
+            <a href="#comparing-l1-and-l2-regularization" class="nav-link">Comparing L1 and L2 Regularization</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h4">
+            <a href="#id3" class="nav-link">Python Code Example</a>
+        </li>
+    
+            </ul>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h3">
+            <a href="#feature-scaling" class="nav-link">Feature Scaling</a><ul class="nav section-nav flex-column">
+                
+        <li class="nav-item toc-entry toc-h4">
+            <a href="#common-methods" class="nav-link">Common Methods</a><ul class="nav section-nav flex-column">
+                
+        <li class="nav-item toc-entry toc-h5">
+            <a href="#standardizing" class="nav-link">Standardizing</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h5">
+            <a href="#normalizing" class="nav-link">Normalizing</a>
+        </li>
+    
+            </ul>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h4">
+            <a href="#use-cases" class="nav-link">Use Cases</a><ul class="nav section-nav flex-column">
+                
+        <li class="nav-item toc-entry toc-h5">
+            <a href="#distance-based-metrics" class="nav-link">Distance Based Metrics</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h5">
+            <a href="#id4" class="nav-link">Regularization</a>
+        </li>
+    
+            </ul>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h4">
+            <a href="#id5" class="nav-link">Python Code Example</a>
+        </li>
+    
+            </ul>
+        </li>
+    
+            </ul>
+        </li>
+    
+    </ul>
+</nav>
+
+
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="section" id="linear-regression">
+<h1>Linear Regression<a class="headerlink" href="#linear-regression" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="overview">
+<h2>Overview<a class="headerlink" href="#overview" title="Permalink to this headline">¶</a></h2>
+<p>Linear regression is a form of supervised learning and falls in the category of regression models, where we aim to predict a numeric variable. This method is all about fitting a straight line to best fit a collection of numeric data points. It can be used in 2-dimensional space, 3-dimensional space and beyond (e.g. n-dimensional space).</p>
+<p>The variable we are trying to predict is referred to as the <strong>dependent variable</strong> while the variables (or features) used to predict this variable are referred to as <strong>independent variables</strong> (or predictors).</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p><strong>Linear Regression works best on linear data:</strong> Linear regression fits a straight line, so if the relationship seen from the data points does not seem to be linear, it will likely not result in a good fit. In cases where the data is not linear adjustments need to be made, like: transforming the data to become linear, adding additional features or choosing a different model all together.</p>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p><strong>Linear Regression is sensitive to outliers:</strong> Linear regression tries to fit a line, considering all available points, so a few extreme outliers can have a big impact on the fit of the line.</p>
+</div>
+<div class="section" id="simple-linear-regression">
+<h3>Simple Linear Regression<a class="headerlink" href="#simple-linear-regression" title="Permalink to this headline">¶</a></h3>
+<p>In it’s simplest form, linear regression can be used with just one independent variable (predictor) to predict a dependent variable. This case is easy to visualize as we can easily plot the predicted relationship (the straight line we are trying to fit) in 2-dimensional space, in a common Cartesian coordinate plane (e.g x and y axes).</p>
+<p>The formula which would describe the fitted line would be of the following format:</p>
+<p><span class="math notranslate nohighlight">\(\color{#c44e52}{y} = \color{#8172b3}{m}\color{#64b5cd}{x} + \color{#da8bc3}{b}\)</span></p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(\color{#64b5cd}{x}\)</span> is the independent variable (predictor)</p></li>
+<li><p><span class="math notranslate nohighlight">\(\color{#c44e52}{y}\)</span> is the dependent variable</p></li>
+<li><p><span class="math notranslate nohighlight">\(\color{#8172b3}{m}\)</span> is the coefficient for <span class="math notranslate nohighlight">\(x\)</span> (e.g. the slope of the line being fitted)</p></li>
+<li><p><span class="math notranslate nohighlight">\(\color{#da8bc3}{b}\)</span> is the intercept (e.g. the <span class="math notranslate nohighlight">\(y\)</span> offset at <span class="math notranslate nohighlight">\(x=0\)</span> of the line being fitted)</p></li>
+</ul>
+<div class="cell tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<img alt="../../_images/linear-regression_10_0.png" src="../../_images/linear-regression_10_0.png" />
+</div>
+</div>
+<div class="section" id="python-code-example">
+<h4>Python Code Example<a class="headerlink" href="#python-code-example" title="Permalink to this headline">¶</a></h4>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Imports and data load</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <span class="n">LinearRegression</span>
+
+<span class="c1"># Load data</span>
+<span class="n">training_data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;data/bmi_and_life_expectancy.csv&#39;</span><span class="p">)</span>
+<span class="n">training_data</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Country</th>
+      <th>Life expectancy</th>
+      <th>BMI</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>Afghanistan</td>
+      <td>52.8</td>
+      <td>20.62058</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>Albania</td>
+      <td>76.8</td>
+      <td>26.44657</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>Algeria</td>
+      <td>75.5</td>
+      <td>24.59620</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>Andorra</td>
+      <td>84.6</td>
+      <td>27.63048</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>Angola</td>
+      <td>56.7</td>
+      <td>22.25083</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Assign independent and dependent variables</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">training_data</span><span class="p">[</span><span class="s1">&#39;BMI&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>  <span class="c1"># reshape to -1 rows (e.g. any), 1 column</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">training_data</span><span class="p">[</span><span class="s1">&#39;Life expectancy&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
+
+<span class="c1"># Create and fit the model</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">LinearRegression</span><span class="p">()</span>
+<span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">);</span>
+
+<span class="c1"># Predict life expectancy for a specific BMI value, using the fitted model</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">([[</span><span class="mi">22</span><span class="p">]]))</span>  <span class="c1"># [[]] to enter parameter as array of arrays (matrix)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>[62.634386]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create plot and title</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span><span class="mi">10</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Fitted line for basic linear regression&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">24</span><span class="p">,</span> <span class="n">fontweight</span><span class="o">=</span><span class="s1">&#39;bold&#39;</span><span class="p">,</span> <span class="n">pad</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+
+<span class="c1"># Set x and y labels</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;BMI&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Life expectancy (years)&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span>
+
+<span class="c1"># Render scatter plot for data points</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">X</span><span class="p">,</span><span class="n">y</span><span class="p">)</span>
+
+<span class="c1"># Render line plot for fitted regression line</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X</span><span class="p">));</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/linear-regression_14_0.png" src="../../_images/linear-regression_14_0.png" />
+</div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This example is illustrative only. In reality the relationship between BMI and life expectancy is very unlikely to be linear, as life expectancy will not keep increasing as BMI keeps increasing.</p>
+</div>
+</div>
+</div>
+<div class="section" id="multiple-linear-regression">
+<h3>Multiple Linear Regression<a class="headerlink" href="#multiple-linear-regression" title="Permalink to this headline">¶</a></h3>
+<p>Linear Regression can also be used with more than one independent variable. In fact, as long as relevant variables (or features) are selected to be evaluated as part of the regression, this can really help to get a better prediction.</p>
+<p>Visualizing multiple regression in a graph is more difficult though. Having two independent variables to predict a dependent variable could still be plotted in a 3-dimensional coordinate system, but this is already harder to interpret. Having more than two independent variables, can no longer be graphed.</p>
+<p>The general rules and methods of linear regression remain the same though, irrespective of the number of independent variables used.</p>
+<p>The formula generalized for multiple linear regression, irrespective of the number of independent variables, would be as follows:</p>
+<p><span class="math notranslate nohighlight">\(\color{#c44e52}{y} = \color{#8172b3}{m_1}\color{#64b5cd}{x_1} + \color{#8172b3}{m_2}\color{#64b5cd}{x_2} + \color{#8172b3}{m_3}\color{#64b5cd}{x_3} + ... + \color{#8172b3}{m_n}\color{#64b5cd}{x_n} + \color{#da8bc3}{b}\)</span></p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(\color{#64b5cd}{x_i}\)</span> are the independent variables (predictor)</p></li>
+<li><p><span class="math notranslate nohighlight">\(\color{#c44e52}{y}\)</span> is the dependent variable</p></li>
+<li><p><span class="math notranslate nohighlight">\(\color{#8172b3}{m_i}\)</span> are the coefficients for the respective <span class="math notranslate nohighlight">\(x_i\)</span> variables</p></li>
+<li><p><span class="math notranslate nohighlight">\(\color{#da8bc3}{b}\)</span> is the intercept (e.g. the <span class="math notranslate nohighlight">\(y\)</span> offset at <span class="math notranslate nohighlight">\(x=0\)</span> of the line being fitted)</p></li>
+</ul>
+<div class="section" id="id1">
+<h4>Python Code Example<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h4>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Imports and data load</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">sklearn.datasets</span> <span class="kn">import</span> <span class="n">load_boston</span>
+<span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <span class="n">LinearRegression</span>
+
+<span class="c1"># Load house pricing data, included in sklearn</span>
+<span class="n">boston_data</span> <span class="o">=</span> <span class="n">load_boston</span><span class="p">()</span>
+
+<span class="c1"># Assign independent and dependent variables</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">boston_data</span><span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">]</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">boston_data</span><span class="p">[</span><span class="s1">&#39;target&#39;</span><span class="p">]</span>
+
+<span class="c1"># Create and fit the model</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">LinearRegression</span><span class="p">()</span>
+<span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">);</span>
+
+<span class="c1"># Create a sample house with values for all 13 features for a house, in X</span>
+<span class="n">sample_house</span> <span class="o">=</span> <span class="p">[[</span><span class="mf">2.29690000e-01</span><span class="p">,</span> <span class="mf">0.00000000e+00</span><span class="p">,</span> <span class="mf">1.05900000e+01</span><span class="p">,</span> <span class="mf">0.00000000e+00</span><span class="p">,</span> <span class="mf">4.89000000e-01</span><span class="p">,</span>
+                <span class="mf">6.32600000e+00</span><span class="p">,</span> <span class="mf">5.25000000e+01</span><span class="p">,</span> <span class="mf">4.35490000e+00</span><span class="p">,</span> <span class="mf">4.00000000e+00</span><span class="p">,</span> <span class="mf">2.77000000e+02</span><span class="p">,</span>
+                <span class="mf">1.86000000e+01</span><span class="p">,</span> <span class="mf">3.94870000e+02</span><span class="p">,</span> <span class="mf">1.09700000e+01</span><span class="p">]]</span>
+
+<span class="c1"># Predict price of the sample house</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">sample_house</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>[23.68284712]
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="polynomial-regression">
+<h3>Polynomial Regression<a class="headerlink" href="#polynomial-regression" title="Permalink to this headline">¶</a></h3>
+<p>Polynomial regression is a form of regression for which the relationship between the independent variable x and the dependent variable y is modeled as an <span class="math notranslate nohighlight">\(n\)</span>th degree polynomial of <span class="math notranslate nohighlight">\(x\)</span>. To achieve this feature <span class="math notranslate nohighlight">\(x\)</span> is preprocessed to add additional features based on degrees of <span class="math notranslate nohighlight">\(x\)</span>. If we for example choose to add polynomial features for <span class="math notranslate nohighlight">\(x\)</span> to till the third degree, this will result in <span class="math notranslate nohighlight">\(\color{#8172b3}{w_1}\color{#64b5cd}{x^3} + \color{#8172b3}{w_2}\color{#64b5cd}{x^2} + \color{#8172b3}{w_3}\color{#64b5cd}{x} + \color{#8172b3}{w}_4\)</span>, which will give us more weights to solve.</p>
+<p>In the below example we can see that for the points in this data set, just evaluating the relation between <span class="math notranslate nohighlight">\(x\)</span> and <span class="math notranslate nohighlight">\(y\)</span> as a linear relation, doesn’t give a good fit. As we start increasing the degree of the the polynomial features to be added, the model is able make a better fit. The optimal model seems to be at a degree of <span class="math notranslate nohighlight">\(4\)</span>, as a degree of <span class="math notranslate nohighlight">\(5\)</span> is starting to introduce an additional ‘valley’ in the line around an <span class="math notranslate nohighlight">\(x\)</span> value of <span class="math notranslate nohighlight">\(-2.5\)</span>, which is not fitting of the data points.</p>
+<div class="cell tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<img alt="../../_images/linear-regression_22_0.png" src="../../_images/linear-regression_22_0.png" />
+</div>
+</div>
+<div class="section" id="id2">
+<h4>Python Code Example<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h4>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Imports and data load</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <span class="n">LinearRegression</span>
+<span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">PolynomialFeatures</span>
+
+<span class="c1"># Load data</span>
+<span class="n">train_data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;data/polynomial_regression_data.csv&#39;</span><span class="p">)</span>
+<span class="n">train_data</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Var_X</th>
+      <th>Var_Y</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>-0.33532</td>
+      <td>6.66854</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>0.02160</td>
+      <td>3.86398</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>-1.19438</td>
+      <td>5.16161</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>-0.65046</td>
+      <td>8.43823</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>-0.28001</td>
+      <td>5.57201</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Assign independent and dependent variables</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">train_data</span><span class="p">[</span><span class="s1">&#39;Var_X&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>  <span class="c1"># reshape to -1 rows (e.g. any), 1 column</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">train_data</span><span class="p">[</span><span class="s1">&#39;Var_Y&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
+
+<span class="c1"># Create polynomial features</span>
+<span class="n">poly_feat</span> <span class="o">=</span> <span class="n">PolynomialFeatures</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>  <span class="c1"># Degree of 4 worked best as per above example</span>
+<span class="n">X_poly</span> <span class="o">=</span> <span class="n">poly_feat</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+
+<span class="c1"># Create and fit the polynomial regression model</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">LinearRegression</span><span class="p">(</span><span class="n">fit_intercept</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>  <span class="c1"># Polynomial Features already contain constant (0th degree)</span>
+<span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_poly</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+
+<span class="c1"># Predict y for specific x value of 1.2 (adding poly features first)</span>
+<span class="n">x_predict</span> <span class="o">=</span> <span class="n">poly_feat</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">([[</span><span class="mf">1.2</span><span class="p">]])</span>  <span class="c1"># [[]] to enter parameter as array of arrays (matrix)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">x_predict</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>[-6.16092964]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create plot and title</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span><span class="mi">10</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Fitted line by adding 4th degree polynomial features&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">24</span><span class="p">,</span> <span class="n">fontweight</span><span class="o">=</span><span class="s1">&#39;bold&#39;</span><span class="p">,</span> <span class="n">pad</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+
+<span class="c1"># Render scatter plot for data points</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">X</span><span class="p">,</span><span class="n">y</span><span class="p">)</span>
+
+<span class="c1"># Generate 100 x-values between the min and the max value of x, to render a smooth line</span>
+<span class="n">X_plot</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">min</span><span class="p">(),</span> <span class="n">X</span><span class="o">.</span><span class="n">max</span><span class="p">(),</span> <span class="mi">100</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>  <span class="c1"># reshape to -1 rows (e.g. any), 1 column</span>
+
+<span class="c1"># Create polynomial features for all generated x values</span>
+<span class="n">X_plot_poly</span> <span class="o">=</span> <span class="n">poly_feat</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">X_plot</span><span class="p">)</span>
+
+<span class="c1"># Render line plot for fitted regression line</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">X_plot</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_plot_poly</span><span class="p">));</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/linear-regression_26_0.png" src="../../_images/linear-regression_26_0.png" />
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="error-functions">
+<h2>Error Functions<a class="headerlink" href="#error-functions" title="Permalink to this headline">¶</a></h2>
+<p>Linear Regression generally works by optimizing towards an Error Function. The error function is used to evaluate - for each data point - the difference between the actual value of the dependent variable for that data point and the predicted value. Linear regression aims to find the lowest error value for the combination of all these differences.</p>
+<div class="section" id="mean-absolute-error-mae">
+<h3>Mean Absolute Error (MAE)<a class="headerlink" href="#mean-absolute-error-mae" title="Permalink to this headline">¶</a></h3>
+<p>The Mean Absolute Error (MAE) is one of the most common error functions used in linear regression. An algorithm like Gradient Descent (discussed later) optimizes for the minimum error  returned by an error function.</p>
+<p>The below visualization is a simplification, as usually we will deal with more than one feature and thus more dimensions. However, for illustrative purposes a 2-dimensional graph works best. The <span class="math notranslate nohighlight">\(\color{#dd8452}{\textbf{orange vertical lines}}\)</span> represent the <span class="math notranslate nohighlight">\(y\)</span> difference between the actual <span class="math notranslate nohighlight">\(y\)</span> value for a point in the data set and the respective predicted <span class="math notranslate nohighlight">\(\hat{y}\)</span> value. The mean of all absolute lengths of these <span class="math notranslate nohighlight">\(\color{#dd8452}{\textbf{orange lines}}\)</span> is what we call the Mean Absolute Error.</p>
+<div class="cell tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<img alt="../../_images/linear-regression_31_0.png" src="../../_images/linear-regression_31_0.png" />
+</div>
+</div>
+<p>The mathematical formula for the Mean Absolute Error can be denoted as:</p>
+<p><span class="math notranslate nohighlight">\(\text{MAE} = \frac{1}{n}\sum\limits_{i=1}^{n}|y_i-\hat{y_i}|\)</span></p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>We take the <strong>absolute distances</strong> for all the <span class="math notranslate nohighlight">\(y_i-\hat{y_i}\)</span> calculations, to avoid positive and negative differences canceling each other out.</p>
+</div>
+</div>
+<div class="section" id="mean-squared-error-mse">
+<h3>Mean Squared Error (MSE)<a class="headerlink" href="#mean-squared-error-mse" title="Permalink to this headline">¶</a></h3>
+<p>The Mean Squared Error (MSE) is another very common error function used in linear regression and is also uses by algorithms like Gradient Descent (discussed later) to optimize for the minimum error returned.</p>
+<p>The below visualization is again a simplification, as usually we will deal with more than one feature and thus more dimensions. However, for illustrative purposes a 2-dimensional graph works best. The <span class="math notranslate nohighlight">\(\color{#dd8452}{\textbf{orange vertical lines}}\)</span> represent the <span class="math notranslate nohighlight">\(y\)</span> difference between the actual <span class="math notranslate nohighlight">\(y\)</span> value for a point in the data set and the respective predicted <span class="math notranslate nohighlight">\(\hat{y}\)</span> value. The mean of all squared lengths of these <span class="math notranslate nohighlight">\(\color{#dd8452}{\textbf{orange lines}}\)</span> is what we call the Mean Squared Error. This is represented by the <span class="math notranslate nohighlight">\(\color{#dd8452}{\textbf{orange box}}\)</span> for one of the data points, but similar squares could be drawn for all data points.</p>
+<div class="cell tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<img alt="../../_images/linear-regression_36_0.png" src="../../_images/linear-regression_36_0.png" />
+</div>
+</div>
+<p>The <strong>mathematical formula</strong> for the Mean Absolute Error can be denoted as:</p>
+<p><span class="math notranslate nohighlight">\(\text{MSE} = \frac{1}{2n}\sum\limits_{i=1}^{n}(y_i-\hat{y_i})^2\)</span></p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The times <span class="math notranslate nohighlight">\(\frac{1}{2}\)</span> in <span class="math notranslate nohighlight">\(\frac{1}{2n}\)</span> is only there for convenience as it leads to a cleaner derivative (which is what Gradient Descent will be calculating to take steps towards optimizing the fit of the line).</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>We do not need to take the <strong>absolute distances</strong> for all the <span class="math notranslate nohighlight">\(y_i-\hat{y_i}\)</span> calculations in this case, as we get this for free by squaring.</p>
+</div>
+</div>
+<div class="section" id="mae-vs-mse">
+<h3>MAE vs MSE<a class="headerlink" href="#mae-vs-mse" title="Permalink to this headline">¶</a></h3>
+<p>Generally speaking both types error calculation are used for a lot of different purposes, but below plot describes a property which tells them apart. In this plot there are 3 fitted lines, but is we want to determine which one is the best, the Mean Average Error will give a different result than the Mean Squared Error.</p>
+<div class="cell tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<img alt="../../_images/linear-regression_42_0.png" src="../../_images/linear-regression_42_0.png" />
+</div>
+</div>
+<ul class="simple">
+<li><p><strong>The best fit according to MAE:</strong> If we use the MAE to determine the best fitted line, the result would actually be that all three lines have exactly the same calculated error when it comes to matching these for points. The reason is that in case of calculating the Mean Absolute Error, moving the line up (closer to the points above the line) will decrease the error for those points by exactly the same amount as which it would increase the error for the points below the line. Hence the total error is the same for all three possible fitted lines.</p></li>
+<li><p><strong>The best fit according to MSE:</strong> If we use the MSE to determine the best fitted line, the result would be that the middle plot, would be the best fitted line. The reason for this is that the squared error, or squared distance from the line increases quadratic. This means that the line would be matched not only based on which one in total has the least combined distance to the line across all points, but also based on minimizing the distances for each individual point to the line, while doing so.</p></li>
+</ul>
+</div>
+</div>
+<div class="section" id="algorithms-and-optimizations">
+<h2>Algorithms and Optimizations<a class="headerlink" href="#algorithms-and-optimizations" title="Permalink to this headline">¶</a></h2>
+<p>There are many algorithms and optimizations which can be performed on the model and/or the data with an aim to get the line which best fits the training data on which the model was trained, but also is general enough to have the best possible prediction power on new data. Other considerations include complexity of the model and interpretability of the model.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p><strong>Avoid over-fitting:</strong> One pitfall which should be avoided is over-fitting a model, where the model super accurately describes the training data, but because it is extremely tightly fit on exactly that data, it will be bad at predicting any new data.</p>
+</div>
+<div class="section" id="gradient-descent">
+<h3>Gradient Descent<a class="headerlink" href="#gradient-descent" title="Permalink to this headline">¶</a></h3>
+<p>Gradient Descent is an algorithm which uses the aforementioned error functions to adjust weights for the fitted model to reduce the error to a minimum. It does so by taking the following high level steps:</p>
+<ul class="simple">
+<li><p>First it <strong>draws a random line</strong> and calculates the error for that line (e.g. how far are the points from this line)</p></li>
+<li><p>Then it <strong>keeps adjusting the line</strong>, checking for the error and proceeding in the direction where the error decreases, until a minimum is found</p></li>
+</ul>
+<p>In a more detailed explanation, decreasing the error funtion works as follows:</p>
+<ul class="simple">
+<li><p>The way to decrease (or descend) the error function, is to first <strong>take the derivative (or gradient) of the error function</strong> with respect to the weights</p></li>
+<li><p>This gradient will point towards the direction where the function increases the most, so the negative of this function will point in <strong>the direction were the function decreases the most</strong></p></li>
+<li><p>We <strong>take a step</strong> in the direction of this negative gradient (see mathematical notation below)</p></li>
+<li><p>This step is actually <strong>multiplied by the learning rate</strong> <span class="math notranslate nohighlight">\(\alpha\)</span> to ensure we take small steps</p></li>
+<li><p>If we keep taking steps, the error function will be decreasing decreasing until we <strong>get to a minimum</strong> (or close to it)</p></li>
+</ul>
+<p>The <strong>mathematical formula</strong> for applying Gradient Descent to update the weights (<span class="math notranslate nohighlight">\(w_i\)</span>) can be denoted as:</p>
+<p><span class="math notranslate nohighlight">\(w_i \rightarrow w_i - \alpha\frac{\partial}{\partial w_i}Error\)</span></p>
+<div class="cell tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<img alt="../../_images/linear-regression_49_0.png" src="../../_images/linear-regression_49_0.png" />
+</div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Theoretically the adjustment of a line towards to related points could happen by optimizing the error step by step on a point per point basis (<strong>stochastic</strong>), or by optimizing in steps on the whole set of points (<strong>batch</strong>). In practice neither of these are used most of the time as both would be computationally inefficient. In reality a method in between is used, which is called mini-batch, where roughly equally sized subsets of data points are considered step by step, after moving to the next subset (<strong>mini-batch</strong>).</p>
+</div>
+<div class="section" id="derivative-of-error-functions">
+<h4>Derivative of Error Functions<a class="headerlink" href="#derivative-of-error-functions" title="Permalink to this headline">¶</a></h4>
+<p>As seen above, Gradient Descent update the line by updating the weights based on the derivative of the error functions used (and the learning rate <span class="math notranslate nohighlight">\(\alpha\)</span>. In this section we show what these derivatives would be for both the Mean Absolute Error (MAE) and the Mean Squared Error (MSE).</p>
+<p><span class="math notranslate nohighlight">\(w_i \rightarrow w_i - \alpha\frac{\partial}{\partial w_i}Error\)</span></p>
+<div class="section" id="derivative-of-mean-absolute-error">
+<h5>Derivative of Mean Absolute Error<a class="headerlink" href="#derivative-of-mean-absolute-error" title="Permalink to this headline">¶</a></h5>
+<p>Earlier we defined the MAE as follows:</p>
+<p><span class="math notranslate nohighlight">\(Error = \frac{1}{n}\sum\limits_{i=1}^{n}|y_i-\hat{y_i}|\)</span></p>
+<p>We also defined a simple prediction with one predictor variable to be:</p>
+<p><span class="math notranslate nohighlight">\(\hat{y} = w_1x + w_2\)</span></p>
+<p><strong>Derivative of the <span class="math notranslate nohighlight">\(Error\)</span> with respect to <span class="math notranslate nohighlight">\(w_1\)</span>:</strong></p>
+<p>To calculate the derivative f the <span class="math notranslate nohighlight">\(Error\)</span> with respect to <span class="math notranslate nohighlight">\(w_1\)</span> we can use the <em>chain rule</em>:</p>
+<p><span class="math notranslate nohighlight">\(\frac{\partial}{\partial{w_1}} Error = \frac{\partial Error}{\partial \hat{y}}\frac{\partial \hat{y}}{\partial w_1}\)</span></p>
+<p>The derivative of the first factor (e.g the derivative of the <span class="math notranslate nohighlight">\(Error\)</span> with respect to <span class="math notranslate nohighlight">\(\hat{y}\)</span>) is:</p>
+<p><span class="math notranslate nohighlight">\(\frac{\partial Error}{\partial \hat{y}} = \pm 1\)</span></p>
+<p>The derivative of the second factor (e.g the derivative of <span class="math notranslate nohighlight">\(\hat{y}\)</span> with respect to <span class="math notranslate nohighlight">\(w_1\)</span>) is:</p>
+<p><span class="math notranslate nohighlight">\({\partial \hat{y}}\frac{\partial \hat{y}}{\partial w_1} = x\)</span></p>
+<p>Therefore the derivative of the <span class="math notranslate nohighlight">\(Error\)</span> with respect to <span class="math notranslate nohighlight">\(w_1\)</span> is:</p>
+<p><span class="math notranslate nohighlight">\(\frac{\partial}{\partial{w_1}} Error = \pm x\)</span></p>
+<p><strong>Derivative of the <span class="math notranslate nohighlight">\(Error\)</span> with respect to <span class="math notranslate nohighlight">\(w_2\)</span>:</strong></p>
+<p>To calculate the derivative f the <span class="math notranslate nohighlight">\(Error\)</span> with respect to <span class="math notranslate nohighlight">\(w_2\)</span> we again use the <em>chain rule</em>:</p>
+<p><span class="math notranslate nohighlight">\(\frac{\partial}{\partial{w_2}} Error = \frac{\partial Error}{\partial \hat{y}}\frac{\partial \hat{y}}{\partial w_2}\)</span></p>
+<p>As we saw, the derivative of the first factor (e.g the derivative of the <span class="math notranslate nohighlight">\(Error\)</span> with respect to <span class="math notranslate nohighlight">\(\hat{y}\)</span>) is:</p>
+<p><span class="math notranslate nohighlight">\(\frac{\partial Error}{\partial \hat{y}} = \pm 1\)</span></p>
+<p>The derivative of the second factor (e.g the derivative of <span class="math notranslate nohighlight">\(\hat{y}\)</span> with respect to <span class="math notranslate nohighlight">\(w_2\)</span>) is:</p>
+<p><span class="math notranslate nohighlight">\({\partial \hat{y}}\frac{\partial \hat{y}}{\partial w_2} = 1\)</span></p>
+<p>Therefore the derivative of the <span class="math notranslate nohighlight">\(Error\)</span> with respect to <span class="math notranslate nohighlight">\(w_2\)</span> is:</p>
+<p><span class="math notranslate nohighlight">\(\frac{\partial}{\partial{w_2}} Error = \pm 1\)</span></p>
+<p><strong>Summarizing:</strong></p>
+<p><span class="math notranslate nohighlight">\(\frac{\partial}{\partial{w_1}} Error = \pm x\)</span></p>
+<p><span class="math notranslate nohighlight">\(\frac{\partial}{\partial{w_2}} Error = \pm 1\)</span></p>
+</div>
+<div class="section" id="derivative-of-mean-squared-error">
+<h5>Derivative of Mean Squared Error<a class="headerlink" href="#derivative-of-mean-squared-error" title="Permalink to this headline">¶</a></h5>
+<p>Earlier we defined the MSE as follows:</p>
+<p><span class="math notranslate nohighlight">\(Error = \frac{1}{2n}\sum\limits_{i=1}^{n}(y_i-\hat{y_i})^2\)</span></p>
+<p>We also defined a simple prediction with one predictor variable to be:</p>
+<p><span class="math notranslate nohighlight">\(\hat{y} = w_1x + w_2\)</span></p>
+<p><strong>Derivative of the <span class="math notranslate nohighlight">\(Error\)</span> with respect to <span class="math notranslate nohighlight">\(w_1\)</span>:</strong></p>
+<p>To calculate the derivative f the <span class="math notranslate nohighlight">\(Error\)</span> with respect to <span class="math notranslate nohighlight">\(w_1\)</span> we can use the <em>chain rule</em>:</p>
+<p><span class="math notranslate nohighlight">\(\frac{\partial}{\partial{w_1}} Error = \frac{\partial Error}{\partial \hat{y}}\frac{\partial \hat{y}}{\partial w_1}\)</span></p>
+<p>The derivative of the first factor (e.g the derivative of the <span class="math notranslate nohighlight">\(Error\)</span> with respect to <span class="math notranslate nohighlight">\(\hat{y}\)</span>) is:</p>
+<p><span class="math notranslate nohighlight">\(\frac{\partial Error}{\partial \hat{y}} = -(y - \hat{y})\)</span></p>
+<p>The derivative of the second factor (e.g the derivative of <span class="math notranslate nohighlight">\(\hat{y}\)</span> with respect to <span class="math notranslate nohighlight">\(w_1\)</span>) is:</p>
+<p><span class="math notranslate nohighlight">\({\partial \hat{y}}\frac{\partial \hat{y}}{\partial w_1} = x\)</span></p>
+<p>Therefore the derivative of the <span class="math notranslate nohighlight">\(Error\)</span> with respect to <span class="math notranslate nohighlight">\(w_1\)</span> is:</p>
+<p><span class="math notranslate nohighlight">\(\frac{\partial}{\partial{w_1}} Error = -(y - \hat{y})x\)</span></p>
+<p><strong>Derivative of the <span class="math notranslate nohighlight">\(Error\)</span> with respect to <span class="math notranslate nohighlight">\(w_2\)</span>:</strong></p>
+<p>To calculate the derivative f the <span class="math notranslate nohighlight">\(Error\)</span> with respect to <span class="math notranslate nohighlight">\(w_2\)</span> we again use the <em>chain rule</em>:</p>
+<p><span class="math notranslate nohighlight">\(\frac{\partial}{\partial{w_2}} Error = \frac{\partial Error}{\partial \hat{y}}\frac{\partial \hat{y}}{\partial w_2}\)</span></p>
+<p>As we saw, the derivative of the first factor (e.g the derivative of the <span class="math notranslate nohighlight">\(Error\)</span> with respect to <span class="math notranslate nohighlight">\(\hat{y}\)</span>) is:</p>
+<p><span class="math notranslate nohighlight">\(\frac{\partial Error}{\partial \hat{y}} = -(y - \hat{y})\)</span></p>
+<p>The derivative of the second factor (e.g the derivative of <span class="math notranslate nohighlight">\(\hat{y}\)</span> with respect to <span class="math notranslate nohighlight">\(w_2\)</span>) is:</p>
+<p><span class="math notranslate nohighlight">\({\partial \hat{y}}\frac{\partial \hat{y}}{\partial w_2} = 1\)</span></p>
+<p>Therefore the derivative of the <span class="math notranslate nohighlight">\(Error\)</span> with respect to <span class="math notranslate nohighlight">\(w_2\)</span> is:</p>
+<p><span class="math notranslate nohighlight">\(\frac{\partial}{\partial{w_2}} Error = -(y - \hat{y})\)</span></p>
+<p><strong>Summarizing:</strong></p>
+<p><span class="math notranslate nohighlight">\(\frac{\partial}{\partial{w_1}} Error = -(y - \hat{y})x\)</span></p>
+<p><span class="math notranslate nohighlight">\(\frac{\partial}{\partial{w_2}} Error = -(y - \hat{y})\)</span></p>
+</div>
+</div>
+</div>
+<div class="section" id="regularization">
+<h3>Regularization<a class="headerlink" href="#regularization" title="Permalink to this headline">¶</a></h3>
+<p>Regularization is a concept which includes the complexity of an algorithm as a consideration when training a model. This can help to avoid over-fitting and can increase interpretability of the model. In short, simple models generalize better.</p>
+<div class="cell tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<img alt="../../_images/linear-regression_59_0.png" src="../../_images/linear-regression_59_0.png" />
+</div>
+</div>
+<p>Regularization takes the coefficients of each of the terms of a formula describing the fitted line into account when determining the error of the function.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Regularization can be applied both to classification as well as regression problems.</p>
+</div>
+<div class="section" id="l1-regularization">
+<h4>L1 Regularization<a class="headerlink" href="#l1-regularization" title="Permalink to this headline">¶</a></h4>
+<p>L1 Regularization takes the sum of all the <strong>absolute</strong> values of all coefficients describing the fitted line and considers this as part of the error calculation. To tune how much to ‘punish’ the complexity of a model an extra parameter is introduced, called <span class="math notranslate nohighlight">\(\lambda\)</span>. The sum of the absolute values is multiplied by <span class="math notranslate nohighlight">\(\lambda\)</span> before it is added to the error calculation of the model.</p>
+<table class="full-width table">
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Simple formula</p></th>
+<th class="head"><p>More complex formula</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><span class="math notranslate nohighlight">\(3x_1 + 4x_2 + 5 = 0\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(2x_1^3 - 2x_1^2x_2 - 4x_2^3 +3x_1^2 + 6x_1x_2 + 4x_2^2 +5 = 0\)</span></p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Sum absolute coefficients:</strong></p>
+<p><span class="math notranslate nohighlight">\(|3| + |4| = \textbf{7}\)</span></p>
+</td>
+<td><p><strong>Sum absolute coefficients:</strong></p>
+<p><span class="math notranslate nohighlight">\(|2| + |-2| + |-4| + |3| + |6| + |4| = \textbf{21}\)</span></p>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="l2-regularization">
+<h4>L2 Regularization<a class="headerlink" href="#l2-regularization" title="Permalink to this headline">¶</a></h4>
+<p>L2 Regularization takes the sum of all the <strong>squared</strong> values of all coefficients describing the fitted line and considers this as part of the error calculation. To tune how much to ‘punish’ the complexity of a model an extra parameter is introduced, called <span class="math notranslate nohighlight">\(\lambda\)</span>. The sum of the squared values is multiplied by <span class="math notranslate nohighlight">\(\lambda\)</span> before it is added to the error calculation of the model.</p>
+<table class="full-width table">
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Simple formula</p></th>
+<th class="head"><p>More complex formula</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><span class="math notranslate nohighlight">\(3x_1 + 4x_2 + 5 = 0\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(2x_1^3 - 2x_1^2x_2 - 4x_2^3 +3x_1^2 + 6x_1x_2 + 4x_2^2 +5 = 0\)</span></p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Sum absolute coefficients:</strong></p>
+<p><span class="math notranslate nohighlight">\((3)^2 + (4)^2 = \textbf{25}\)</span></p>
+</td>
+<td><p><strong>Sum absolute coefficients:</strong></p>
+<p><span class="math notranslate nohighlight">\((2)^2 + (-2)^2 + (-4)^2 + (3)^2 + (6)^2 + (4)^2 = \textbf{85}\)</span></p>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="comparing-l1-and-l2-regularization">
+<h4>Comparing L1 and L2 Regularization<a class="headerlink" href="#comparing-l1-and-l2-regularization" title="Permalink to this headline">¶</a></h4>
+<p>Generally speaking L1 Regularization is less computationally efficient, which may be counterintuitive, as squaring seems more expensive, but taking the derivative of absolute values is harder compared to squared values. L1 is faster though when the data is sparse. For example, if we have 1000 rows, but only 10 really have data and the others are mostly zeros, L1 will detect this and will select only the features which manner.</p>
+<table class="full-width table">
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>L1 Regularization</p></th>
+<th class="head"><p>L2 Regularization</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Computationally inefficient</p></td>
+<td><p>Computationally efficient</p></td>
+</tr>
+<tr class="row-odd"><td><p>Sparse outputs</p></td>
+<td><p>Non-sparse outputs</p></td>
+</tr>
+<tr class="row-even"><td><p>Feature selection</p></td>
+<td><p>No feature selection</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="id3">
+<h4>Python Code Example<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h4>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Imports and data load</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <span class="n">Lasso</span>
+<span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <span class="n">LinearRegression</span>
+
+<span class="c1"># Load data</span>
+<span class="n">train_data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;data/regularization_data.csv&#39;</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+
+<span class="c1"># Assign column names</span>
+<span class="n">train_data</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;x1&#39;</span><span class="p">,</span> <span class="s1">&#39;x2&#39;</span><span class="p">,</span><span class="s1">&#39;x3&#39;</span><span class="p">,</span><span class="s1">&#39;x4&#39;</span><span class="p">,</span><span class="s1">&#39;x5&#39;</span><span class="p">,</span><span class="s1">&#39;x6&#39;</span><span class="p">,</span><span class="s1">&#39;y&#39;</span><span class="p">]</span>
+
+<span class="n">train_data</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>x1</th>
+      <th>x2</th>
+      <th>x3</th>
+      <th>x4</th>
+      <th>x5</th>
+      <th>x6</th>
+      <th>y</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1.25664</td>
+      <td>2.04978</td>
+      <td>-6.23640</td>
+      <td>4.71926</td>
+      <td>-4.26931</td>
+      <td>0.20590</td>
+      <td>12.31798</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>-3.89012</td>
+      <td>-0.37511</td>
+      <td>6.14979</td>
+      <td>4.94585</td>
+      <td>-3.57844</td>
+      <td>0.00640</td>
+      <td>23.67628</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>5.09784</td>
+      <td>0.98120</td>
+      <td>-0.29939</td>
+      <td>5.85805</td>
+      <td>0.28297</td>
+      <td>-0.20626</td>
+      <td>-1.53459</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>0.39034</td>
+      <td>-3.06861</td>
+      <td>-5.63488</td>
+      <td>6.43941</td>
+      <td>0.39256</td>
+      <td>-0.07084</td>
+      <td>-24.68670</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>5.84727</td>
+      <td>-0.15922</td>
+      <td>11.41246</td>
+      <td>7.52165</td>
+      <td>1.69886</td>
+      <td>0.29022</td>
+      <td>17.54122</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Get all, but last column for X</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">train_data</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
+
+<span class="c1"># Get only last column for y</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">train_data</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
+
+<span class="c1"># Create the linear regression model with lasso regularization</span>
+<span class="n">lasso_reg</span> <span class="o">=</span> <span class="n">Lasso</span><span class="p">()</span>
+
+<span class="c1"># Fit the model</span>
+<span class="n">lasso_reg</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">);</span>
+
+<span class="c1"># Retrieve and print out the coefficients from the regression model</span>
+<span class="n">reg_coef</span> <span class="o">=</span> <span class="n">lasso_reg</span><span class="o">.</span><span class="n">coef_</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">reg_coef</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>[ 0.          2.35793224  2.00441646 -0.05511954 -3.92808318  0.        ]
+</pre></div>
+</div>
+</div>
+</div>
+<p>Lets also check coefficients without regularization…</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Check coefficients without regularization</span>
+<span class="n">lin_reg</span> <span class="o">=</span> <span class="n">LinearRegression</span><span class="p">()</span>
+<span class="n">lin_reg</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span><span class="n">y</span><span class="p">)</span>
+<span class="n">lin_coef</span> <span class="o">=</span> <span class="n">lin_reg</span><span class="o">.</span><span class="n">coef_</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">lin_coef</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>[-6.19918532e-03  2.96325160e+00  1.98199191e+00 -7.86249920e-02 -3.95818772e+00  9.30786141e+00]
+</pre></div>
+</div>
+</div>
+</div>
+<p>As we can see, linear regression with regularization put the first and last predictor feature to 0, compared to basic linear regression. It determined that the penalty for removing those was small and thus reduced complexity of the model by removing them (and adjusting coefficients for other features for a new fit).</p>
+</div>
+</div>
+<div class="section" id="feature-scaling">
+<h3>Feature Scaling<a class="headerlink" href="#feature-scaling" title="Permalink to this headline">¶</a></h3>
+<p>Feature scaling is a way to transform data into a common range of values, creating new variables which can be used for further training of models.</p>
+<div class="section" id="common-methods">
+<h4>Common Methods<a class="headerlink" href="#common-methods" title="Permalink to this headline">¶</a></h4>
+<div class="section" id="standardizing">
+<h5>Standardizing<a class="headerlink" href="#standardizing" title="Permalink to this headline">¶</a></h5>
+<p>Standardizing a feature comes down to creating an extra variable which counts the number of standard deviations which the original value was from the mean of the original variable.</p>
+<p>This comes down to:</p>
+<p><span class="math notranslate nohighlight">\(\text{standardized variable} = \frac{\text{distance till mean}}{\text{standard deviation}}\)</span></p>
+<p>An example in <strong>Python</strong> using a variable for weight would be:</p>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;weight_standard&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;weight&quot;</span><span class="p">]</span> <span class="o">-</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;weight&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span> <span class="o">/</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;weight&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">std</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="normalizing">
+<h5>Normalizing<a class="headerlink" href="#normalizing" title="Permalink to this headline">¶</a></h5>
+<p>Normalizing a feature is about creating an extra variable which represents all the values of the original variable on a 0 to 1 scale.</p>
+<p>This comes down to:</p>
+<p><span class="math notranslate nohighlight">\(\text{normalied variable} = \frac{\text{distance from min value}}{\text{distance between min and max value}}\)</span></p>
+<p>An example in <strong>Python</strong> using a variable for weight would be:</p>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;weight_normal&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;weight&quot;</span><span class="p">]</span> <span class="o">-</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;weight&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">())</span> <span class="o">/</span> <span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;weight&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span> <span class="o">-</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;weight&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="use-cases">
+<h4>Use Cases<a class="headerlink" href="#use-cases" title="Permalink to this headline">¶</a></h4>
+<p>In many machine learning algorithms, the result will change depending on the units of the data.</p>
+<p>This is especially true in two specific cases:</p>
+<ul class="simple">
+<li><p>When the algorithm uses distance-based metrics to predict</p></li>
+<li><p>When regularization is incorporated</p></li>
+</ul>
+<div class="section" id="distance-based-metrics">
+<h5>Distance Based Metrics<a class="headerlink" href="#distance-based-metrics" title="Permalink to this headline">¶</a></h5>
+<p>For machine learning techniques like Support Vector Machines (SVM) and k-nearest neighbors (k-nn), which involve distance based methods to determine a prediction, it is necessary to apply a form of feature scaling to avoid misleading or incorrect predictions.</p>
+</div>
+<div class="section" id="id4">
+<h5>Regularization<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h5>
+<p>When regularization is used it is also required to use a form of feature scaling. The reasoning behind is that regularization uses the coefficients of terms to determine the penalty for complexity of each. Because of this, regularization will unfairly punish features with small ranges (as they typically have larger coefficients). Feature scaling can balance out these coefficients, leading to a fairer comparison when applying regularization and avoiding canceling out the wrong terms or features.</p>
+</div>
+</div>
+<div class="section" id="id5">
+<h4>Python Code Example<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h4>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Imports and data load</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <span class="n">LinearRegression</span>
+<span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <span class="n">Lasso</span>
+<span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">StandardScaler</span>
+
+<span class="c1"># Load data</span>
+<span class="n">train_data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;data/feature_scaling_data.csv&#39;</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+<span class="n">train_data</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;x1&#39;</span><span class="p">,</span> <span class="s1">&#39;x2&#39;</span><span class="p">,</span><span class="s1">&#39;x3&#39;</span><span class="p">,</span><span class="s1">&#39;x4&#39;</span><span class="p">,</span><span class="s1">&#39;x5&#39;</span><span class="p">,</span><span class="s1">&#39;x6&#39;</span><span class="p">,</span><span class="s1">&#39;y&#39;</span><span class="p">]</span>
+<span class="n">train_data</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>x1</th>
+      <th>x2</th>
+      <th>x3</th>
+      <th>x4</th>
+      <th>x5</th>
+      <th>x6</th>
+      <th>y</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1.25664</td>
+      <td>2.04978</td>
+      <td>-6.23640</td>
+      <td>4.71926</td>
+      <td>-4.26931</td>
+      <td>0.20590</td>
+      <td>12.31798</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>-3.89012</td>
+      <td>-0.37511</td>
+      <td>6.14979</td>
+      <td>4.94585</td>
+      <td>-3.57844</td>
+      <td>0.00640</td>
+      <td>23.67628</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>5.09784</td>
+      <td>0.98120</td>
+      <td>-0.29939</td>
+      <td>5.85805</td>
+      <td>0.28297</td>
+      <td>-0.20626</td>
+      <td>-1.53459</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>0.39034</td>
+      <td>-3.06861</td>
+      <td>-5.63488</td>
+      <td>6.43941</td>
+      <td>0.39256</td>
+      <td>-0.07084</td>
+      <td>-24.68670</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>5.84727</td>
+      <td>-0.15922</td>
+      <td>11.41246</td>
+      <td>7.52165</td>
+      <td>1.69886</td>
+      <td>0.29022</td>
+      <td>17.54122</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Get all, but last column for X</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">train_data</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
+
+<span class="c1"># Get only last column for y</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">train_data</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
+
+<span class="c1"># Create the standardization scaling object</span>
+<span class="n">scaler</span> <span class="o">=</span> <span class="n">StandardScaler</span><span class="p">()</span>
+
+<span class="c1"># Fit the standardization parameters and scale the data.</span>
+<span class="n">X_scaled</span> <span class="o">=</span> <span class="n">scaler</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+
+<span class="c1"># Create the linear regression model with lasso regularization</span>
+<span class="n">lasso_reg</span> <span class="o">=</span> <span class="n">Lasso</span><span class="p">()</span>
+
+<span class="c1"># Fit the model</span>
+<span class="n">lasso_reg</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_scaled</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+
+<span class="c1"># Retrieve and print out the coefficients from the regression model</span>
+<span class="n">scaled_reg_coef</span> <span class="o">=</span> <span class="n">lasso_reg</span><span class="o">.</span><span class="n">coef_</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">scaled_reg_coef</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>[  0.           3.90753617   9.02575748  -0.         -11.78303187   0.45340137]
+</pre></div>
+</div>
+</div>
+</div>
+<p>If we compare this to the previous (see <em>below</em> for reference) result where only regulation was applied (in section <em>Regularization</em>), we can see that adding feature scaling drastically changes the outcomes as different features are being canceled out than before and coefficients vary.</p>
+<div class="cell tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>[ 0.          2.35793224  2.00441646 -0.05511954 -3.92808318  0.        ]
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+
+              </div>
+              
+        </div>
+    </div>
+    
+    
+    <div class='prev-next-bottom'>
+        
+    <a class='left-prev' id="prev-link" href="index.html" title="previous page">Supervised Learning</a>
+    <a class='right-next' id="next-link" href="../unsupervised-learning/index.html" title="next page">Unsupervised Learning</a>
+
+    </div>
+    <footer class="footer mt-5 mt-md-0">
+    <div class="container">
+      <p>
+        
+          By Joep Persoon<br/>
+        
+            &copy; Copyright 2020.<br/>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+
+    <script src="../../_static/js/index.js"></script>
+    
+  </body>
+</html>
