@@ -814,7 +814,7 @@
 <div class="section" id="l1-regularization">
 <h4>L1 Regularization<a class="headerlink" href="#l1-regularization" title="Permalink to this headline">¶</a></h4>
 <p>L1 Regularization takes the sum of all the <strong>absolute</strong> values of all coefficients describing the fitted line and considers this as part of the error calculation. To tune how much to ‘punish’ the complexity of a model an extra parameter is introduced, called <span class="math notranslate nohighlight">\(\lambda\)</span>. The sum of the absolute values is multiplied by <span class="math notranslate nohighlight">\(\lambda\)</span> before it is added to the error calculation of the model.</p>
-<table class="full-width table">
+<table class="table">
 <colgroup>
 <col style="width: 50%" />
 <col style="width: 50%" />
@@ -841,7 +841,7 @@
 <div class="section" id="l2-regularization">
 <h4>L2 Regularization<a class="headerlink" href="#l2-regularization" title="Permalink to this headline">¶</a></h4>
 <p>L2 Regularization takes the sum of all the <strong>squared</strong> values of all coefficients describing the fitted line and considers this as part of the error calculation. To tune how much to ‘punish’ the complexity of a model an extra parameter is introduced, called <span class="math notranslate nohighlight">\(\lambda\)</span>. The sum of the squared values is multiplied by <span class="math notranslate nohighlight">\(\lambda\)</span> before it is added to the error calculation of the model.</p>
-<table class="full-width table">
+<table class="table">
 <colgroup>
 <col style="width: 50%" />
 <col style="width: 50%" />
@@ -868,7 +868,7 @@
 <div class="section" id="comparing-l1-and-l2-regularization">
 <h4>Comparing L1 and L2 Regularization<a class="headerlink" href="#comparing-l1-and-l2-regularization" title="Permalink to this headline">¶</a></h4>
 <p>Generally speaking L1 Regularization is less computationally efficient, which may be counterintuitive, as squaring seems more expensive, but taking the derivative of absolute values is harder compared to squared values. L1 is faster though when the data is sparse. For example, if we have 1000 rows, but only 10 really have data and the others are mostly zeros, L1 will detect this and will select only the features which manner.</p>
-<table class="full-width table">
+<table class="table">
 <colgroup>
 <col style="width: 50%" />
 <col style="width: 50%" />

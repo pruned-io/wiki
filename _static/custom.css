@@ -17,8 +17,3 @@ thead {
 .table p {
     margin-bottom: 10px;
 }
-
-.table.full-width {
-    width: 100% !important;
-    display: table !important;
-}
