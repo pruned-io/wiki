@@ -5,7 +5,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta charset="utf-8" />
-    <title>Perceptrons &#8212; Data Science Wiki</title>
+    <title>Perceptron Algorithm &#8212; Data Science Wiki</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css" integrity="sha384-KA6wR/X5RY4zFAHpv/CnoG2UW1uogYfdnP67Uv7eULvTveboZJg0qUpmJZb5VqzN" crossorigin="anonymous">
     <link href="../../_static/css/index.css" rel="stylesheet">
     <link rel="stylesheet" href="../../_static/sphinx-book-theme.css" type="text/css" />
@@ -33,7 +33,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.18.0/dist/embed-amd.js"></script>
     <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    <link rel="canonical" href="https://www.pruned.io/machine-learning/supervised-learning/perceptrons.html" />
+    <link rel="canonical" href="https://www.pruned.io/machine-learning/supervised-learning/perceptron-algorithm.html" />
     <link rel="shortcut icon" href="../../_static/favicon.ico"/>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
@@ -43,10 +43,10 @@
 
 
 <!-- Opengraph tags -->
-<meta property="og:url"         content="https://www.pruned.io/machine-learning/supervised-learning/perceptrons.html" />
+<meta property="og:url"         content="https://www.pruned.io/machine-learning/supervised-learning/perceptron-algorithm.html" />
 <meta property="og:type"        content="article" />
-<meta property="og:title"       content="Perceptrons" />
-<meta property="og:description" content="Perceptrons  Overview  The perceptron algorithm is a form of supervised learning which is used for binary classifiers. It is heavily used in deep learning, as i" />
+<meta property="og:title"       content="Perceptron Algorithm" />
+<meta property="og:description" content="Perceptron Algorithm  Overview  The perceptron algorithm is a form of supervised learning which is used for binary classifiers. It is heavily used in deep learn" />
 <meta property="og:image"       content="https://www.pruned.io/_static/pruned-io.png" />
 
 <meta name="twitter:card" content="summary">
@@ -125,7 +125,7 @@
                 <!-- ipynb file if we had a myst markdown file -->
                 
                 <!-- Download raw file -->
-                <a class="dropdown-buttons" href="../../_sources/machine-learning/supervised-learning/perceptrons.ipynb"><button type="button" class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip" data-placement="left">.ipynb</button></a>
+                <a class="dropdown-buttons" href="../../_sources/machine-learning/supervised-learning/perceptron-algorithm.ipynb"><button type="button" class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip" data-placement="left">.ipynb</button></a>
                 <!-- Download PDF via print -->
                 <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF" onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
             </div>
@@ -138,7 +138,7 @@
             <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Connect with source repository"><i class="fab fa-github"></i></button>
             <div class="dropdown-buttons sourcebuttons">
                 <a class="repository-button" href="https://github.com/pruned-io/wiki"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left" title="Source repository"><i class="fab fa-github"></i>repository</button></a>
-                <a class="issues-button" href="https://github.com/pruned-io/wiki/issues/new?title=Issue%20on%20page%20%2Fmachine-learning/supervised-learning/perceptrons.html&body=Your%20issue%20content%20here."><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left" title="Open an issue"><i class="fas fa-lightbulb"></i>open issue</button></a>
+                <a class="issues-button" href="https://github.com/pruned-io/wiki/issues/new?title=Issue%20on%20page%20%2Fmachine-learning/supervised-learning/perceptron-algorithm.html&body=Your%20issue%20content%20here."><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left" title="Open an issue"><i class="fas fa-lightbulb"></i>open issue</button></a>
                 
             </div>
         </div>
@@ -172,7 +172,7 @@
         </li>
     
         <li class="nav-item toc-entry toc-h3">
-            <a href="#perceptron-algorithm" class="nav-link">Perceptron Algorithm</a>
+            <a href="#single-layer-perceptron" class="nav-link">Single Layer Perceptron</a>
         </li>
     
             </ul>
@@ -189,8 +189,8 @@
         
               <div>
                 
-  <div class="section" id="perceptrons">
-<h1>Perceptrons<a class="headerlink" href="#perceptrons" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="perceptron-algorithm">
+<h1>Perceptron Algorithm<a class="headerlink" href="#perceptron-algorithm" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="overview">
 <h2>Overview<a class="headerlink" href="#overview" title="Permalink to this headline">¶</a></h2>
 <p>The perceptron algorithm is a form of supervised learning which is used for <strong>binary classifiers</strong>. It is heavily used in deep learning, as it forms the basis for <strong>neural networks</strong>. Binary classification typically concerns yes/no type of questions, like:</p>
@@ -202,7 +202,7 @@
 <p>A simple example with a variable <span class="math notranslate nohighlight">\(x_1\)</span> and a variable <span class="math notranslate nohighlight">\(x_2\)</span> is plotted in the below graph. The <strong>label</strong> <span class="math notranslate nohighlight">\(y\)</span> is depicted by the color of the dots, <span class="math notranslate nohighlight">\(\color{#4c72b0}{\textbf{blue}}\)</span> and <span class="math notranslate nohighlight">\(\color{#dd8452}{\textbf{orange}}\)</span>. What we are typically trying to achieve with binary classifier algorithms is to find the line which best divides the two classification outcomes (e.g. the <span class="math notranslate nohighlight">\(\color{#8172b3}{\textbf{purple}}\)</span> line below).</p>
 <div class="cell tag_remove-input docutils container">
 <div class="cell_output docutils container">
-<img alt="../../_images/perceptrons_6_0.png" src="../../_images/perceptrons_6_0.png" />
+<img alt="../../_images/perceptron-algorithm_6_0.png" src="../../_images/perceptron-algorithm_6_0.png" />
 </div>
 </div>
 <div class="section" id="boundary-line">
@@ -247,14 +247,18 @@ x = (x_1, x_2, \ldots, x_n)\)</span></p>
 </div>
 </div>
 </div>
-<div class="section" id="perceptron-algorithm">
-<h3>Perceptron Algorithm<a class="headerlink" href="#perceptron-algorithm" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="single-layer-perceptron">
+<h3>Single Layer Perceptron<a class="headerlink" href="#single-layer-perceptron" title="Permalink to this headline">¶</a></h3>
+<p>The Single Layer Perceptron is the simplest form of a neural network and it can be used for <strong>linear</strong> binary classification.</p>
 <p><img alt="Perceptrons" src="../../_images/perceptrons.png" /></p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>The bias <span class="math notranslate nohighlight">\(\color{#da8bc3}{b}\)</span> is sometimes depicted inside the <strong>Linear Function</strong> node, instead of as a separate input.</p>
 </div>
-<p><span class="math notranslate nohighlight">\(\varphi\)</span></p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Although Single Layer Perceptrons can only be used for <strong>linear</strong> classification, Multi Layer Perceptrons can also learn non-linearly separable patterns.</p>
+</div>
 </div>
 </div>
 </div>
