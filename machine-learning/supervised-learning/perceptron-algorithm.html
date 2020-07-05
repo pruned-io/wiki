@@ -249,8 +249,15 @@ x = (x_1, x_2, \ldots, x_n)\)</span></p>
 </div>
 <div class="section" id="single-layer-perceptron">
 <h3>Single Layer Perceptron<a class="headerlink" href="#single-layer-perceptron" title="Permalink to this headline">¶</a></h3>
-<p>The Single Layer Perceptron is the simplest form of a neural network and it can be used for <strong>linear</strong> binary classification.</p>
+<p>The <em>Single Layer Perceptron</em> is the simplest form of a neural network and can be used for <strong>linear</strong> binary classification. It receives a number of inputs which are evaluated by a <strong>linear function</strong> (or <em>transfer function</em>). This function will return a numeric value which the <strong>step function</strong> (or <em>activation function</em>) will interpret to derive a binary label, using a predefined <strong>threshold</strong>.</p>
 <p><img alt="Perceptrons" src="../../_images/perceptrons.png" /></p>
+<p>Here the <em>linear function</em> would be of the form:</p>
+<p><span class="math notranslate nohighlight">\(Wx + b \text{, where:} \\ 
+W = (w_1, w_2, \ldots, w_n ) \\ 
+x = (x_1, x_2, \ldots, x_n)\)</span></p>
+<p>The <em>step function</em> would be predicting the label using a <em>threshold</em>:</p>
+<p><span class="math notranslate nohighlight">\(\color{#4c72b0}{\textbf{1}} \text{ if } \geq 0 \\
+\color{#dd8452}{\textbf{0}} \text{ if } &lt; 0\)</span></p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>The bias <span class="math notranslate nohighlight">\(\color{#da8bc3}{b}\)</span> is sometimes depicted inside the <strong>Linear Function</strong> node, instead of as a separate input.</p>
