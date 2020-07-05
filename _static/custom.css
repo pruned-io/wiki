@@ -1,5 +1,9 @@
 body {
-    font-family: "Avenir Next Rounded", "Avenir Next Rounded", "Avenir", "Calibri", Verdana, sans-serif;
+    font-family: "Avenir Next Rounded", "Avenir Next Rounded", "Avenir", "Calibri", Verdana, sans-serif !important;
+}
+
+.header-style, h1, h2, h3, h4, h5, h6 {
+    font-family: "Avenir Next Rounded", "Avenir Next Rounded", "Avenir", "Calibri", Verdana, sans-serif !important;
 }
 
 thead {
