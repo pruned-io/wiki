@@ -27,6 +27,6 @@ main.bd-content #main-content div.section {
     padding-right: 0;
 }
 
-div.dropdown-buttons-trigger div.dropdown-buttons {
-    max-width: 300px;
+div.dropdown-buttons-trigger div.dropdown-buttons button.topbarbtn {
+    min-width: 130px;
 }
