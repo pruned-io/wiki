@@ -207,7 +207,7 @@
 <li><p>Did the patient recover?</p></li>
 <li><p>Did the online shop visitor convert?</p></li>
 </ul>
-<p>A simple example with a variable <span class="math notranslate nohighlight">\(x_1\)</span> and a variable <span class="math notranslate nohighlight">\(x_2\)</span> is plotted in the below graph. The <strong>label</strong> <span class="math notranslate nohighlight">\(y\)</span> is depicted by the color of the dots, <span class="math notranslate nohighlight">\(\color{#4c72b0}{\textbf{blue}}\)</span> and <span class="math notranslate nohighlight">\(\color{#dd8452}{\textbf{orange}}\)</span>. What we are typically trying to achieve with binary classifier algorithms is to find the line which best divides the two classification outcomes (e.g. the <span class="math notranslate nohighlight">\(\color{#8172b3}{\textbf{purple}}\)</span> line below).</p>
+<p>A simple example with a variable <span class="math notranslate nohighlight">\(x_1\)</span> and a variable <span class="math notranslate nohighlight">\(x_2\)</span> is plotted in the below graph. The <strong>label</strong> <span class="math notranslate nohighlight">\(y\)</span> is depicted by the color of the dots, <span class="math notranslate nohighlight">\(\color{#4c72b0}{\textbf{blue}}\)</span> and <span class="math notranslate nohighlight">\(\color{#c44e52}{\textbf{red}}\)</span>. What we are typically trying to achieve with binary classifier algorithms is to find the line which best divides the two classification outcomes (e.g. the <span class="math notranslate nohighlight">\(\color{#8172b3}{\textbf{purple}}\)</span> line below).</p>
 <div class="cell tag_remove-input docutils container">
 <div class="cell_output docutils container">
 <img alt="../../_images/perceptron-algorithm_6_0.png" src="../../_images/perceptron-algorithm_6_0.png" />
@@ -228,7 +228,7 @@ x = (x_1, x_2)\)</span></p>
 <p><span class="math notranslate nohighlight">\(\hat{y} = \left\{
     \begin{array}{ll}
         \color{#4c72b0}{\textbf{1}} \text{ if } Wx + b \geq 0 \\
-        \color{#dd8452}{\textbf{0}} \text{ if } Wx + b &lt; 0
+        \color{#c44e52}{\textbf{0}} \text{ if } Wx + b &lt; 0
     \end{array}
 \right.\)</span></p>
 <div class="section" id="higher-dimensions">
@@ -246,7 +246,7 @@ x = (x_1, x_2, \ldots, x_n)\)</span></p>
 <p><span class="math notranslate nohighlight">\(\hat{y} = \left\{
     \begin{array}{ll}
         \color{#4c72b0}{\textbf{1}} \text{ if } Wx + b \geq 0 \\
-        \color{#dd8452}{\textbf{0}} \text{ if } Wx + b &lt; 0
+        \color{#c44e52}{\textbf{0}} \text{ if } Wx + b &lt; 0
     \end{array}
 \right.\)</span></p>
 <div class="admonition note">
@@ -265,7 +265,7 @@ W = (w_1, w_2, \ldots, w_n ) \\
 x = (x_1, x_2, \ldots, x_n)\)</span></p>
 <p>The <em>step function</em> would be predicting the label using a <em>threshold</em>:</p>
 <p><span class="math notranslate nohighlight">\(\color{#4c72b0}{\textbf{1}} \text{ if } \geq 0 \\
-\color{#dd8452}{\textbf{0}} \text{ if } &lt; 0\)</span></p>
+\color{#c44e52}{\textbf{0}} \text{ if } &lt; 0\)</span></p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>The bias <span class="math notranslate nohighlight">\(\color{#da8bc3}{b}\)</span> is sometimes depicted inside the <strong>Linear Function</strong> node, instead of as a separate input.</p>
