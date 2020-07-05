@@ -1,8 +1,11 @@
 # Book settings
 title: Data Science Wiki
-author: Joep Persoon
+author: Joep Persoon, pruned.io
 logo: '_static/pruned-io.png'
-
+exclude_patterns: ['README.md']
+google_analytics:
+  mytrackingcode: UA-72798352-2
+  
 html:
     extra_navbar: False
     navbar_number_sections: False
