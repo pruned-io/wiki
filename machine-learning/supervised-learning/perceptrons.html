@@ -159,7 +159,19 @@
     <ul class="nav section-nav flex-column">
     
         <li class="nav-item toc-entry toc-h2">
-            <a href="#overview" class="nav-link">Overview</a>
+            <a href="#overview" class="nav-link">Overview</a><ul class="nav section-nav flex-column">
+                
+        <li class="nav-item toc-entry toc-h3">
+            <a href="#boundary-line" class="nav-link">Boundary Line</a><ul class="nav section-nav flex-column">
+                
+        <li class="nav-item toc-entry toc-h4">
+            <a href="#higher-dimensions" class="nav-link">Higher Dimensions</a>
+        </li>
+    
+            </ul>
+        </li>
+    
+            </ul>
         </li>
     
     </ul>
@@ -177,10 +189,59 @@
 <h1>Perceptrons<a class="headerlink" href="#perceptrons" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="overview">
 <h2>Overview<a class="headerlink" href="#overview" title="Permalink to this headline">¶</a></h2>
-<p>The perceptron algorithm is a form of supervised learning which is used for binary classifiers. It is heavily used in deep learning, as it forms the basis for neural networks. Binary classification typically concerns yes/no type of questions (e.g. did the student pass the exam, did the patient recover, did the online shop visitor convert, etc).</p>
+<p>The perceptron algorithm is a form of supervised learning which is used for <strong>binary classifiers</strong>. It is heavily used in deep learning, as it forms the basis for <strong>neural networks</strong>. Binary classification typically concerns yes/no type of questions, like:</p>
+<ul class="simple">
+<li><p>Did the student pass the exam?</p></li>
+<li><p>Did the patient recover?</p></li>
+<li><p>Did the online shop visitor convert?</p></li>
+</ul>
+<p>A simple example with a variable <span class="math notranslate nohighlight">\(x_1\)</span> and a variable <span class="math notranslate nohighlight">\(x_2\)</span> is plotted in the below graph. The <strong>label</strong> <span class="math notranslate nohighlight">\(y\)</span> is depicted by the color of the dots, <span class="math notranslate nohighlight">\(\color{#4c72b0}{\textbf{blue}}\)</span> and <span class="math notranslate nohighlight">\(\color{#dd8452}{\textbf{orange}}\)</span>. What we are typically trying to achieve with binary classifier algorithms is to find the line which best divides the two classification outcomes (e.g. the <span class="math notranslate nohighlight">\(\color{#8172b3}{\textbf{purple}}\)</span> line below).</p>
 <div class="cell tag_remove-input docutils container">
 <div class="cell_output docutils container">
 <img alt="../../_images/perceptrons_6_0.png" src="../../_images/perceptrons_6_0.png" />
+</div>
+</div>
+<div class="section" id="boundary-line">
+<h3>Boundary Line<a class="headerlink" href="#boundary-line" title="Permalink to this headline">¶</a></h3>
+<p>In binary classification, the line which best divides the points in a dataset considering label <span class="math notranslate nohighlight">\(y\)</span> is called the boundary line. The goal of a binary classification algorithm is to find the optimal boundary line.</p>
+<p>If we again take the simple example of two variables <span class="math notranslate nohighlight">\(x_1\)</span> and <span class="math notranslate nohighlight">\(x_2\)</span> and the label <span class="math notranslate nohighlight">\(y\)</span> then the <strong>boundary line</strong> will be depicted by the formula:</p>
+<p><span class="math notranslate nohighlight">\(w_1x_1 + w_2x_2 + b = 0\)</span></p>
+<p>Or abbreviated in <strong>vector notation</strong>:</p>
+<p><span class="math notranslate nohighlight">\(Wx + b = 0 \text{, where:} \\ 
+W = (w_1, w_2) \\ 
+x = (x_1, x_2)\)</span></p>
+<p>The <strong>label</strong> we refer to as:</p>
+<p><span class="math notranslate nohighlight">\(y = \text{label: }0 \text{ or } 1\)</span></p>
+<p>And the <strong>prediction</strong> would be:</p>
+<p><span class="math notranslate nohighlight">\(\hat{y} = \left\{
+    \begin{array}{ll}
+        \color{#4c72b0}{\textbf{1}} \text{ if } Wx + b \geq 0 \\
+        \color{#dd8452}{\textbf{0}} \text{ if } Wx + b &lt; 0
+    \end{array}
+\right.\)</span></p>
+<div class="section" id="higher-dimensions">
+<h4>Higher Dimensions<a class="headerlink" href="#higher-dimensions" title="Permalink to this headline">¶</a></h4>
+<p>Extrapolating the above 2-dimensional example to higher dimensions, will make it impossible to visualize, like we did with the line example above, but it doesn’t change much when it comes to the math involved. Instead of dealing with 2-dimensional space: <span class="math notranslate nohighlight">\(x_1\)</span> and <span class="math notranslate nohighlight">\(x_2\)</span>, we would be dealing with n-dimensional space: <span class="math notranslate nohighlight">\(x_1, x_2, \ldots , x_n\)</span></p>
+<p>The <strong>boundary</strong> would be described by an <span class="math notranslate nohighlight">\(n-1\)</span>-dimensional hyperplane:</p>
+<p><span class="math notranslate nohighlight">\(w_1x_1 + w_2x_2 + \ldots + w_nx_n + b = 0\)</span></p>
+<p>This wouldn’t change the <strong>vector notation</strong>:</p>
+<p><span class="math notranslate nohighlight">\(Wx + b = 0 \text{, where:} \\ 
+W = (w_1, w_2, \ldots, w_n ) \\ 
+x = (x_1, x_2, \ldots, x_n)\)</span></p>
+<p>The <strong>label</strong> we still refer to as:</p>
+<p><span class="math notranslate nohighlight">\(y = \text{label: }0 \text{ or } 1\)</span></p>
+<p>And the <strong>prediction</strong> would still be:</p>
+<p><span class="math notranslate nohighlight">\(\hat{y} = \left\{
+    \begin{array}{ll}
+        \color{#4c72b0}{\textbf{1}} \text{ if } Wx + b \geq 0 \\
+        \color{#dd8452}{\textbf{0}} \text{ if } Wx + b &lt; 0
+    \end{array}
+\right.\)</span></p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>As <span class="math notranslate nohighlight">\(Wx + b\)</span> needs to evaluate to a single value, the vector dimensions for this formula will be as follows: <span class="math notranslate nohighlight">\(W: (1 \times n), x: (n \times 1), b: (1 \times 1)\)</span></p>
+</div>
+<p><img alt="Perceptrons" src="../../_images/perceptrons.png" /></p>
 </div>
 </div>
 </div>
