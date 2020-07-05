@@ -30,3 +30,7 @@ main.bd-content #main-content div.section {
 div.dropdown-buttons-trigger div.dropdown-buttons button.topbarbtn {
     min-width: 130px !important;
 }
+
+div.dropdown-buttons-trigger div.dropdown-buttons {
+    max-width: 140px !important;
+}
