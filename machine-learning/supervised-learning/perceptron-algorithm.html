@@ -189,7 +189,43 @@
         </li>
     
         <li class="nav-item toc-entry toc-h4">
-            <a href="#logical-or-operator" class="nav-link">Logical OR Operator</a>
+            <a href="#logical-or-operator" class="nav-link">Logical OR Operator</a><ul class="nav section-nav flex-column">
+                
+        <li class="nav-item toc-entry toc-h5">
+            <a href="#id1" class="nav-link">Configuring the Weights</a>
+        </li>
+    
+            </ul>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h4">
+            <a href="#logical-not-operator" class="nav-link">Logical NOT Operator</a><ul class="nav section-nav flex-column">
+                
+        <li class="nav-item toc-entry toc-h5">
+            <a href="#id2" class="nav-link">Configuring the Weights</a>
+        </li>
+    
+            </ul>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h4">
+            <a href="#logical-nand-operator" class="nav-link">Logical NAND Operator</a><ul class="nav section-nav flex-column">
+                
+        <li class="nav-item toc-entry toc-h5">
+            <a href="#id3" class="nav-link">Configuring the Weights</a>
+        </li>
+    
+            </ul>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h4">
+            <a href="#logical-xor-operator" class="nav-link">Logical XOR Operator</a><ul class="nav section-nav flex-column">
+                
+        <li class="nav-item toc-entry toc-h5">
+            <a href="#multi-layer-perceptron" class="nav-link">Multi Layer Perceptron</a>
+        </li>
+    
+            </ul>
         </li>
     
             </ul>
@@ -274,7 +310,11 @@ x = (x_1, x_2, \ldots, x_n)\)</span></p>
 <div class="section" id="single-layer-perceptron">
 <h3>Single Layer Perceptron<a class="headerlink" href="#single-layer-perceptron" title="Permalink to this headline">¶</a></h3>
 <p>The <em>Single Layer Perceptron</em> is the simplest form of a neural network and can be used for <strong>linear</strong> binary classification. It receives a number of inputs which are evaluated by a <strong>linear function</strong> (or <em>transfer function</em>). This function will return a numeric value which the <strong>step function</strong> (or <em>activation function</em>) will interpret to derive a binary label, using a predefined <strong>threshold</strong>.</p>
-<p><img alt="Perceptrons" src="../../_images/perceptron.png" /></p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The bias <span class="math notranslate nohighlight">\(\color{#da8bc3}{b}\)</span> is sometimes depicted inside the <strong>Linear Function</strong> node, instead of as a separate input.</p>
+</div>
+<img alt="../../_images/perceptron.png" id="perceptron" src="../../_images/perceptron.png" />
 <p>Here the <em>linear function</em> would be of the form:</p>
 <p><span class="math notranslate nohighlight">\(Wx + b \text{, where:} \\ 
 W = (w_1, w_2, \ldots, w_n ) \\ 
@@ -284,46 +324,109 @@ x = (x_1, x_2, \ldots, x_n)\)</span></p>
 \color{#c44e52}{\textbf{0}} \text{ if } &lt; 0\)</span></p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>The bias <span class="math notranslate nohighlight">\(\color{#da8bc3}{b}\)</span> is sometimes depicted inside the <strong>Linear Function</strong> node, instead of as a separate input.</p>
-</div>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
 <p>Although Single Layer Perceptrons can only be used for <strong>linear</strong> classification, Multi Layer Perceptrons can also learn non-linearly separable patterns.</p>
 </div>
 </div>
 <div class="section" id="perceptrons-as-logical-operators">
 <h3>Perceptrons as Logical Operators<a class="headerlink" href="#perceptrons-as-logical-operators" title="Permalink to this headline">¶</a></h3>
 <p>An interesting fact about perceptrons is that they can also be used to model some logical operators. This can be achieved by choosing the weights of the inputs in such a way that the boundary line will split the outputs in the way expected for the respective logical operator, for each of the possible input combinations for <span class="math notranslate nohighlight">\(x_1\)</span> and <span class="math notranslate nohighlight">\(x_2\)</span> (having <span class="math notranslate nohighlight">\(0\)</span> or <span class="math notranslate nohighlight">\(1\)</span> values).</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The weights which are chosen in below sections are just one of the options which could work for the weights, to get the expected behavior for this operator. There are multiple combinations of weights possible which lead to the same result.</p>
+</div>
 <div class="section" id="logical-and-operator">
 <h4>Logical AND Operator<a class="headerlink" href="#logical-and-operator" title="Permalink to this headline">¶</a></h4>
-<div class="figure align-default" id="perceptron-logical-and">
-<img alt="../../_images/perceptron_logical_and.png" class="full-width" src="../../_images/perceptron_logical_and.png" />
-</div>
+<p>The logical AND operator can be depicted as follows in the form of a perceptron:</p>
+<img alt="../../_images/perceptron_logical_and.png" id="perceptron-logical-and" src="../../_images/perceptron_logical_and.png" />
 <div class="section" id="configuring-the-weights">
 <h5>Configuring the Weights<a class="headerlink" href="#configuring-the-weights" title="Permalink to this headline">¶</a></h5>
 <div class="margin sidebar">
 <p class="sidebar-title"></p>
 <p><img alt="Perceptron - Logical AND - Truth Table" src="../../_images/perceptron_logical_and_table.png" /></p>
 </div>
-<p>The <strong>logical AND operator</strong> should behave as depicted in the <em>Logical Truth Table</em> which can be achieved picking the right weights for the boundary line. If we consider the following formula, the below weights would result in he expeced output:</p>
+<p>The <strong>logical AND operator</strong> should behave as depicted in the <em>Logical Truth Table</em> which can be achieved picking the right weights for the boundary line. If we consider the following formula, the below weights would result in he expected output:</p>
 <p><span class="math notranslate nohighlight">\(\text{output} = \left\{
     \begin{array}{ll}
         \color{#4c72b0}{\textbf{1}} \text{ if } w_1x_1 + w_2x_2 + b \geq 0 \\
         \color{#c44e52}{\textbf{0}} \text{ if } w_1x_1 + w_2x_2 + b &lt; 0
     \end{array}
 \right.\)</span></p>
-<p><span class="math notranslate nohighlight">\(w_1 = 0.5, w_2 = 0.5, b = -1\)</span></p>
-<div class="full-width admonition note">
-<p class="admonition-title">Note</p>
-<p>The weights which are chosen in below section are just one of the options which could work for the weights, to get the expected behavior for this operator. There are multiple combinations of weights possible which lead to the same result.</p>
-</div>
+<p><span class="math notranslate nohighlight">\(w_1 = 1, w_2 = 1, b = -2\)</span></p>
 </div>
 </div>
 <div class="section" id="logical-or-operator">
 <h4>Logical OR Operator<a class="headerlink" href="#logical-or-operator" title="Permalink to this headline">¶</a></h4>
-<div class="tip admonition">
-<p class="admonition-title">TODO</p>
-<p>Add diagrams and weights for OR, NOT, XOR</p>
+<p>The logical OR operator can be depicted as follows in the form of a perceptron:</p>
+<img alt="../../_images/perceptron_logical_or.png" id="perceptron-logical-or" src="../../_images/perceptron_logical_or.png" />
+<div class="section" id="id1">
+<h5>Configuring the Weights<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h5>
+<div class="margin sidebar">
+<p class="sidebar-title"></p>
+<p><img alt="Perceptron - Logical OR - Truth Table" src="../../_images/perceptron_logical_or_table.png" /></p>
+</div>
+<p>The <strong>logical OR operator</strong> should behave as depicted in the <em>Logical Truth Table</em> which can be achieved picking the right weights for the boundary line. If we consider the following formula, the below weights would result in he expected output:</p>
+<p><span class="math notranslate nohighlight">\(\text{output} = \left\{
+    \begin{array}{ll}
+        \color{#4c72b0}{\textbf{1}} \text{ if } w_1x_1 + w_2x_2 + b \geq 0 \\
+        \color{#c44e52}{\textbf{0}} \text{ if } w_1x_1 + w_2x_2 + b &lt; 0
+    \end{array}
+\right.\)</span></p>
+<p><span class="math notranslate nohighlight">\(w_1 = 1, w_2 = 1, b = -1\)</span></p>
+</div>
+</div>
+<div class="section" id="logical-not-operator">
+<h4>Logical NOT Operator<a class="headerlink" href="#logical-not-operator" title="Permalink to this headline">¶</a></h4>
+<p>The logical NOT operator can be depicted as follows in the form of a perceptron:</p>
+<img alt="../../_images/perceptron_logical_not.png" id="perceptron-logical-not" src="../../_images/perceptron_logical_not.png" />
+<div class="section" id="id2">
+<h5>Configuring the Weights<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h5>
+<div class="margin sidebar">
+<p class="sidebar-title"></p>
+<p><img alt="Perceptron - Logical NOT - Truth Table" src="../../_images/perceptron_logical_not_table.png" /></p>
+</div>
+<p>The <strong>logical NOT operator</strong> should behave as depicted in the <em>Logical Truth Table</em> which can be achieved picking the right weights for the boundary line. If we consider the following formula, the below weights would result in he expected output:</p>
+<p><span class="math notranslate nohighlight">\(\text{output} = \left\{
+    \begin{array}{ll}
+        \color{#4c72b0}{\textbf{1}} \text{ if } w_1x_1 + b \geq 0 \\
+        \color{#c44e52}{\textbf{0}} \text{ if } w_1x_1 + b &lt; 0
+    \end{array}
+\right.\)</span></p>
+<p><span class="math notranslate nohighlight">\(w_1 = -1, b = 0\)</span></p>
+</div>
+</div>
+<div class="section" id="logical-nand-operator">
+<h4>Logical NAND Operator<a class="headerlink" href="#logical-nand-operator" title="Permalink to this headline">¶</a></h4>
+<p>The logical NAND operator can be depicted as follows in the form of a perceptron:</p>
+<img alt="../../_images/perceptron_logical_nand.png" id="perceptron-logical-nand" src="../../_images/perceptron_logical_nand.png" />
+<div class="section" id="id3">
+<h5>Configuring the Weights<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h5>
+<div class="margin sidebar">
+<p class="sidebar-title"></p>
+<p><img alt="Perceptron - Logical NAND - Truth Table" src="../../_images/perceptron_logical_nand_table.png" /></p>
+</div>
+<p>The <strong>logical NAND operator</strong> should behave as depicted in the <em>Logical Truth Table</em> which can be achieved picking the right weights for the boundary line. If we consider the following formula, the below weights would result in he expected output:</p>
+<p><span class="math notranslate nohighlight">\(\text{output} = \left\{
+    \begin{array}{ll}
+        \color{#4c72b0}{\textbf{1}} \text{ if } w_1x_1 + w_2x_2 + b \geq 0 \\
+        \color{#c44e52}{\textbf{0}} \text{ if } w_1x_1 + w_2x_2 + b &lt; 0
+    \end{array}
+\right.\)</span></p>
+<p><span class="math notranslate nohighlight">\(w_1 = -1, w_2 = -1, b = 1\)</span></p>
+</div>
+</div>
+<div class="section" id="logical-xor-operator">
+<h4>Logical XOR Operator<a class="headerlink" href="#logical-xor-operator" title="Permalink to this headline">¶</a></h4>
+<p>The logical XOR operator is slightly more complex to model using perceptrons:</p>
+<img alt="../../_images/perceptron_logical_xor.png" id="perceptron-logical-xor" src="../../_images/perceptron_logical_xor.png" />
+<div class="section" id="multi-layer-perceptron">
+<h5>Multi Layer Perceptron<a class="headerlink" href="#multi-layer-perceptron" title="Permalink to this headline">¶</a></h5>
+<div class="margin sidebar">
+<p class="sidebar-title"></p>
+<p><img alt="Perceptron - Logical XOR - Truth Table" src="../../_images/perceptron_logical_xor_table.png" /></p>
+</div>
+<p>The logical XOR operator cannot be modeled with a single layer perceptron.</p>
+<p>Here a multi layer (2 layers) perceptron would be required, where three of the perceptrons modeled before are used. The model has two layers as there are two steps of processing. For the first step both the NAND operator as well as the OR operator evaluate the <span class="math notranslate nohighlight">\(x_1\)</span> and <span class="math notranslate nohighlight">\(x_2\)</span> inputs and for the second step the outputs of those two operations will be evaluated by the AND operator, leading to the output of the total multi layered model.</p>
+<p>With this we have created our first neural network!</p>
 </div>
 </div>
 </div>
