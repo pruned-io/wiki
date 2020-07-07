@@ -293,31 +293,30 @@ x = (x_1, x_2, \ldots, x_n)\)</span></p>
 </div>
 <div class="section" id="perceptrons-as-logical-operators">
 <h3>Perceptrons as Logical Operators<a class="headerlink" href="#perceptrons-as-logical-operators" title="Permalink to this headline">¶</a></h3>
-<p>An interesting fact about perceptrons is that they can also be used to model some logical operators. This can be achieved by choosing the weights of the inputs in such a way that the boundary line will split the outputs in the way expected for the respective logical operator, for each of the possible input combinations for <span class="math notranslate nohighlight">\(x_1\)</span> and <span class="math notranslate nohighlight">\(x_2\)</span>, being <span class="math notranslate nohighlight">\(0\)</span> and <span class="math notranslate nohighlight">\(1\)</span>.</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>The weights which are chosen in below sections for each operator are just one of the options which could work for the weights. There are multiple combinations of weights possible which lead to the same result.</p>
-</div>
+<p>An interesting fact about perceptrons is that they can also be used to model some logical operators. This can be achieved by choosing the weights of the inputs in such a way that the boundary line will split the outputs in the way expected for the respective logical operator, for each of the possible input combinations for <span class="math notranslate nohighlight">\(x_1\)</span> and <span class="math notranslate nohighlight">\(x_2\)</span> (having <span class="math notranslate nohighlight">\(0\)</span> or <span class="math notranslate nohighlight">\(1\)</span> values).</p>
 <div class="section" id="logical-and-operator">
 <h4>Logical AND Operator<a class="headerlink" href="#logical-and-operator" title="Permalink to this headline">¶</a></h4>
-<img alt="../../_images/perceptron_logical_and.png" class="full-width" id="label" src="../../_images/perceptron_logical_and.png" />
+<div class="figure align-default" id="perceptron-logical-and">
+<img alt="../../_images/perceptron_logical_and.png" class="full-width" src="../../_images/perceptron_logical_and.png" />
+</div>
 <div class="section" id="configuring-the-weights">
 <h5>Configuring the Weights<a class="headerlink" href="#configuring-the-weights" title="Permalink to this headline">¶</a></h5>
-<div class="full-width admonition note">
-<p class="admonition-title">Note</p>
-<p>The weights which are chosen in below section are just one of the options which could work for the weights. There are multiple combinations of weights possible which lead to the same result.</p>
-</div>
-<div class="sidebar">
-<p class="sidebar-title">Truth Table</p>
+<div class="margin sidebar">
+<p class="sidebar-title"></p>
 <p><img alt="Perceptron - Logical AND - Truth Table" src="../../_images/perceptron_logical_and_table.png" /></p>
 </div>
-<p>The <em>logical AND operator</em> should behave as depicted in the <em>Logical Truth Table</em> which can be achieved picking the right weights for the boundary line.</p>
-<p>If we again consider the following formula:</p>
-<p><span class="math notranslate nohighlight">\(W * x + b = 0\)</span></p>
-<p>The following weights would lead to the expected output:</p>
-<p><span class="math notranslate nohighlight">\(w_1 = 1\)</span></p>
-<p><span class="math notranslate nohighlight">\(w_2 = 1\)</span></p>
-<p><span class="math notranslate nohighlight">\(b = 1\)</span></p>
+<p>The <strong>logical AND operator</strong> should behave as depicted in the <em>Logical Truth Table</em> which can be achieved picking the right weights for the boundary line. If we consider the following formula, the below weights would result in he expeced output:</p>
+<p><span class="math notranslate nohighlight">\(\text{output} = \left\{
+    \begin{array}{ll}
+        \color{#4c72b0}{\textbf{1}} \text{ if } w_1x_1 + w_2x_2 + b \geq 0 \\
+        \color{#c44e52}{\textbf{0}} \text{ if } w_1x_1 + w_2x_2 + b &lt; 0
+    \end{array}
+\right.\)</span></p>
+<p><span class="math notranslate nohighlight">\(w_1 = 0.5, w_2 = 0.5, b = -1\)</span></p>
+<div class="full-width admonition note">
+<p class="admonition-title">Note</p>
+<p>The weights which are chosen in below section are just one of the options which could work for the weights, to get the expected behavior for this operator. There are multiple combinations of weights possible which lead to the same result.</p>
+</div>
 </div>
 </div>
 <div class="section" id="logical-or-operator">
