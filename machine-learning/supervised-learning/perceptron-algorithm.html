@@ -179,7 +179,13 @@
             <a href="#perceptrons-as-logical-operators" class="nav-link">Perceptrons as Logical Operators</a><ul class="nav section-nav flex-column">
                 
         <li class="nav-item toc-entry toc-h4">
-            <a href="#logical-and-operator" class="nav-link">Logical AND Operator</a>
+            <a href="#logical-and-operator" class="nav-link">Logical AND Operator</a><ul class="nav section-nav flex-column">
+                
+        <li class="nav-item toc-entry toc-h5">
+            <a href="#configuring-the-weights" class="nav-link">Configuring the Weights</a>
+        </li>
+    
+            </ul>
         </li>
     
         <li class="nav-item toc-entry toc-h4">
@@ -290,16 +296,21 @@ x = (x_1, x_2, \ldots, x_n)\)</span></p>
 <p>An interesting fact about perceptrons is that they can also be used to model some logical operators. This can be achieved by choosing the weights of the inputs in such a way that the boundary line will split the outputs in the way expected for the respective logical operator, for each of the possible input combinations for <span class="math notranslate nohighlight">\(x_1\)</span> and <span class="math notranslate nohighlight">\(x_2\)</span>, being <span class="math notranslate nohighlight">\(0\)</span> and <span class="math notranslate nohighlight">\(1\)</span>.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>The weight which are chosen in below sections for each operator are just one of the options which could work for the weights. There are multiple combinations of weights possible which lead to the same result.</p>
+<p>The weights which are chosen in below sections for each operator are just one of the options which could work for the weights. There are multiple combinations of weights possible which lead to the same result.</p>
 </div>
 <div class="section" id="logical-and-operator">
 <h4>Logical AND Operator<a class="headerlink" href="#logical-and-operator" title="Permalink to this headline">¶</a></h4>
-<div class="margin sidebar">
+<img alt="../../_images/perceptron_logical_and.png" class="full-width" id="label" src="../../_images/perceptron_logical_and.png" />
+<div class="section" id="configuring-the-weights">
+<h5>Configuring the Weights<a class="headerlink" href="#configuring-the-weights" title="Permalink to this headline">¶</a></h5>
+<div class="full-width admonition note">
+<p class="admonition-title">Note</p>
+<p>The weights which are chosen in below section are just one of the options which could work for the weights. There are multiple combinations of weights possible which lead to the same result.</p>
+</div>
+<div class="sidebar">
 <p class="sidebar-title">AND Truth Table</p>
-<p>The boundary line in the perceptron should enable the following behavior:</p>
 <p><img alt="Perceptron - Logical AND - Truth Table" src="../../_images/perceptron_logical_and_table.png" /></p>
 </div>
-<p><img alt="Perceptron - Logical AND" src="../../_images/perceptron_logical_and.png" /></p>
 <p>The <em>logical AND operator</em> should behave as depicted in the <em>Logical Truth Table</em> which can be achieved picking the right weights for the boundary line.</p>
 <p>If we again consider the following formula:</p>
 <p><span class="math notranslate nohighlight">\(W * x + b = 0\)</span></p>
@@ -307,6 +318,7 @@ x = (x_1, x_2, \ldots, x_n)\)</span></p>
 <p><span class="math notranslate nohighlight">\(w_1 = 1\)</span></p>
 <p><span class="math notranslate nohighlight">\(w_2 = 1\)</span></p>
 <p><span class="math notranslate nohighlight">\(b = 1\)</span></p>
+</div>
 </div>
 <div class="section" id="logical-or-operator">
 <h4>Logical OR Operator<a class="headerlink" href="#logical-or-operator" title="Permalink to this headline">¶</a></h4>

@@ -30,6 +30,14 @@ main.bd-content #main-content div.section {
     padding-right: 0;
 }
 
+
+@media (min-width: 768px) {
+    img.full-width {
+        max-width: 136% !important;
+    }
+}
+
+
 /* Enable to make github dropdown from header a bit wider to support "Suggest and Edit" functionality on one line
 
 div.dropdown-buttons-trigger div.dropdown-buttons button.topbarbtn {
