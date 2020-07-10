@@ -37,6 +37,8 @@
     <link rel="shortcut icon" href="../../_static/favicon.ico"/>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Unsupervised Learning" href="../unsupervised-learning/index.html" />
+    <link rel="prev" title="Linear Regression" href="linear-regression.html" />
 
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="docsearch:language" content="en">
@@ -83,8 +85,16 @@
 <li class="navbar-special">
 <p class="margin-caption">Machine Learning</p>
 </li>
-  <li class="">
+  <li class="active">
     <a href="index.html">Supervised Learning</a>
+  <ul class="nav sidenav_l2">
+    <li class="">
+      <a href="linear-regression.html">Linear Regression</a>
+    </li>
+    <li class="active">
+      <a href="">Perceptron Algorithm</a>
+    </li>
+  </ul>
   </li>
   <li class="">
     <a href="../unsupervised-learning/index.html">Unsupervised Learning</a>
@@ -439,14 +449,28 @@ x = (x_1, x_2, \ldots, x_n)\)</span></p>
 <img alt="../../_images/perceptron-algorithm_53_0.png" src="../../_images/perceptron-algorithm_53_0.png" />
 </div>
 </div>
-<div class="tip admonition">
-<p class="admonition-title">TODO</p>
-<p>Add section about how the steps are made to adjust the boundary line and add a plot which shows the steps</p>
-</div>
+<p>The perceptron algorithm basically takes the following steps (as can also be seen visually in below plot):</p>
+<ul>
+<li><p><strong>Draw a random boundary line</strong> which predicts the classification of each point (<span class="math notranslate nohighlight">\(\hat{y}\)</span>), based on the following equation:</p>
+<p><span class="math notranslate nohighlight">\(\hat{y} = step(w_1x_1 + w_2x_2 + b)\)</span>, where the <span class="math notranslate nohighlight">\(step\)</span> function transform the outcome to 0 or 1 based on the output of the formula, e.g <span class="math notranslate nohighlight">\(\ge 0\)</span> or <span class="math notranslate nohighlight">\(&lt; 0\)</span></p>
+</li>
+<li><p><strong>Check for each point</strong> <span class="math notranslate nohighlight">\((p,q)\)</span> if the the point is correctly classified (<span class="math notranslate nohighlight">\(\hat{y} = y\)</span>)</p>
+<ul class="simple">
+<li><p><em>If correctly classified</em> <span class="math notranslate nohighlight">\(\rightarrow\)</span> <strong>do nothing</strong></p></li>
+<li><p><em>If <span class="math notranslate nohighlight">\(\hat{y} = 1\)</span> but</em> <span class="math notranslate nohighlight">\(y = 0 \rightarrow\)</span> <strong>subtract</strong> <span class="math notranslate nohighlight">\(\alpha p\)</span>, <span class="math notranslate nohighlight">\(\alpha q\)</span> and <span class="math notranslate nohighlight">\(\alpha\)</span> from <span class="math notranslate nohighlight">\(w_1\)</span>, <span class="math notranslate nohighlight">\(w_2\)</span> and <span class="math notranslate nohighlight">\(b\)</span>, respectively</p></li>
+<li><p><em>If <span class="math notranslate nohighlight">\(\hat{y} = 0\)</span> but</em> <span class="math notranslate nohighlight">\(y = 1 \rightarrow\)</span> <strong>add</strong> <span class="math notranslate nohighlight">\(\alpha p\)</span>, <span class="math notranslate nohighlight">\(\alpha q\)</span> and <span class="math notranslate nohighlight">\(\alpha\)</span> from <span class="math notranslate nohighlight">\(w_1\)</span>, <span class="math notranslate nohighlight">\(w_2\)</span> and <span class="math notranslate nohighlight">\(b\)</span>, respectively</p></li>
+</ul>
+</li>
+<li><p><strong>Keep iterating</strong> over the points until all are correctly classified, or the predefined number of iterations is reached</p></li>
+</ul>
 <div class="cell tag_remove-input docutils container">
 <div class="cell_output docutils container">
 <img alt="../../_images/perceptron-algorithm_55_0.png" src="../../_images/perceptron-algorithm_55_0.png" />
 </div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This example concerned only two features <span class="math notranslate nohighlight">\(x_1\)</span> and <span class="math notranslate nohighlight">\(x_2\)</span> and could therefore be plotted in 2-dimensional coordinates, but the same concept applies to any amount of features.</p>
 </div>
 </div>
 </div>
@@ -461,6 +485,8 @@ x = (x_1, x_2, \ldots, x_n)\)</span></p>
     
     <div class='prev-next-bottom'>
         
+    <a class='left-prev' id="prev-link" href="linear-regression.html" title="previous page">Linear Regression</a>
+    <a class='right-next' id="next-link" href="../unsupervised-learning/index.html" title="next page">Unsupervised Learning</a>
 
     </div>
     <footer class="footer mt-5 mt-md-0">
